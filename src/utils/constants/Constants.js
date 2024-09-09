@@ -31,7 +31,7 @@ module.exports = {
     TIME_QUICK_INPUTS : [
         {
             id:0,
-            label:"Ahora"
+            label:"Desde ahora"
         },
         {
             id:1,
@@ -39,7 +39,7 @@ module.exports = {
         },
         {
             id:2,
-            label:"Hace una hora"
+            label:"Desde hace una hora"
         },
         {
             id:3,

@@ -35,7 +35,7 @@ export default function BoxSearch({onClickSearchCriteria}){
                     icon={CONSTANTS.ICON_TIME}
                     onClick={()=>{onClickSearchCriteria(CONSTANTS.FORM_FULL_SHOW_TIME)}}
                 >
-                    Desde: {searchCriteria.time.label}
+                    {searchCriteria.time.label}
                 </LinkText>
             </div>
         </div>

@@ -67,7 +67,7 @@ export default function TimeSearch({onSelect}){
     
     return (
         <div className="time-search">
-            <h2>Desde</h2>
+            <h2>Horario</h2>
             <div className="input-container">
                 {timeObject && timeObject.label!==timeObject.date && <div>
                     <p>{timeObject.label}:</p>
