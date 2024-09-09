@@ -1,0 +1,9 @@
+.link-1{
+    cursor: pointer;
+    font-weight: 500;
+    user-select: none;
+
+    :hover{
+        color: $bright;
+    }
+}

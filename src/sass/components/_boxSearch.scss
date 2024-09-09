@@ -1,0 +1,28 @@
+.box-search{
+    background-color: $color-secondary;
+    border:solid 1px $dark;
+    border-right: solid 3px black;
+    border-bottom: solid 3px black;
+    border-radius: 10px;
+    user-select: none;
+    padding: 10px;
+
+    position: absolute;
+    top: 1em;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    max-width: 400px;
+    
+
+    font-size: $font-sm;
+
+    .box-search-label{
+        display:flex;
+        flex-flow: column nowrap;
+        padding: 0 0 10px 0;
+    }
+    
+}

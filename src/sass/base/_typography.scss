@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+body{
+    font-family: $font-primary;
+    color: $color-text-primary;
+    font-size: $font-base-size;
+}
+
+.txt-larger-0{
+    font-size: $font-md;
+}
+.txt-larger-1{
+    font-size: $font-lg;
+}
+.txt-larger-2{
+    font-size: $font-xl;
+}
+.txt-larger-3{
+    font-size: $font-xxl;
+}
+.txt-larger-4{
+    font-size: $font-xxxxl;
+}
+.txt-smaller-1{
+    font-size: $font-sm;
+}
+.txt-smaller-2{
+    font-size: $font-xs;
+}
+.text-yellow{
+    color: $yellow;
+}
+.text-yellow-dark{
+    color: $yellow-dark;
+}
+.text-gray{
+    color: $gray;
+}
+.text-done{
+    text-decoration:line-through;
+}
+
+
+.y-space-10px{
+    margin-top:10px;
+    display:block;
+}

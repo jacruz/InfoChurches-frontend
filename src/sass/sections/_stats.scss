@@ -1,0 +1,17 @@
+.stats{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    border: solid 1px $gray;
+    border-radius: 10px;
+
+    margin: 20px 0;
+}
+
+.stats-total{
+    border-radius: 50%;
+    background-color: $yellow-dark ;
+    padding: 50px;
+    margin: 10px;
+}

@@ -1,0 +1,71 @@
+.btn-icon-1{
+    cursor: pointer;
+    border: 2px solid $dark;
+    border-radius: 10px;
+
+    padding: 0.5em 10px;
+}
+
+.btn-icon-2{
+    cursor: pointer;
+    border: none;
+    padding: 0 4px;
+
+    background-color: transparent;
+
+}
+
+
+.btn-1{
+    cursor: pointer;
+    background-color: $dark;
+    color: $color-text-secondary;
+    border:solid 1px $dark;
+    border-right: solid 3px black;
+    border-bottom: solid 3px black;
+    border-radius: 10px;
+    padding: 10px;
+    
+    font-family:inherit;
+
+    &:active{
+        background-color: $bright;
+    }
+    &-disabled{
+        background-color: $gray;
+        color: $bright;
+    }
+}
+
+.btn-2{
+    cursor: pointer;
+    background-color: $color-secondary;
+    border:solid 1px $dark;
+    border-right: solid 3px black;
+    border-bottom: solid 3px black;
+    border-radius: 10px;
+    padding: 10px;
+    
+    font-family:inherit;
+}
+
+.btn-icon-hover-green{
+    :hover{
+        @include btnHoverCustom($green);
+    }
+}
+.btn-icon-hover-yellow{
+    :hover{
+        @include btnHoverCustom($yellow-dark);
+    }
+}
+.btn-icon-hover-red{
+    :hover{
+        @include btnHoverCustom($red);
+    }
+}
+.btn-icon-hover-bright{
+    :hover{
+        @include btnHoverCustom($color-secondary);
+    }
+}

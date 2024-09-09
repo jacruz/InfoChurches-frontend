@@ -1,0 +1,26 @@
+.time-search{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    height: 100%;
+    overflow-y: auto;
+
+    .input-container{
+        display: flex;
+        flex-flow: column nowrap;
+        padding: 15px;
+        width: 90%;
+
+        border: 2px solid $dark;
+        border-right: solid 3px black;
+        border-bottom: solid 3px black;
+        border-radius: 10px;
+        background-color: $color-contrast-primary;
+
+        input{
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+    }
+}

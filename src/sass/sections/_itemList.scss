@@ -1,0 +1,31 @@
+.item-list{
+    margin: 5px 0;
+
+    li{
+        border: solid 1px $gray;
+        padding: 10px 5px;
+        margin: 15px 0;
+
+        .item{
+            display: flex;
+            flex-flow: row nowrap;
+
+            .item-ckeck{
+                flex-basis: 10%;
+            }
+            .item-txt{
+                flex-basis: 70%;  
+                display: flex;
+                flex-flow: row wrap;
+                align-content: center;
+                text-align: start;
+            }
+            .item-edit{
+                flex-basis: 10%;
+            }
+            .item-delete{
+                flex-basis: 10%;
+            }
+        }
+    }
+}

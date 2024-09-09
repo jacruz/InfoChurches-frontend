@@ -1,0 +1,35 @@
+.label-icon{
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    padding: 15px 15px 0;
+    width: 90%;
+
+    .fa{
+        font-size: $font-lg;
+        flex:0 0 20%;
+        text-align: right;
+        color: $color-contrast-primary;
+    }
+
+    label {
+        flex:0 0 80%;
+        border: none;
+        border-bottom: 1px solid $dark;
+    
+        background-color: transparent;
+        padding: 0.6em 10px;
+        color: $color-text-primary;
+        font-weight: 500;
+    
+        outline:none;
+        margin: 0 10px 0 20px;
+        width: 80%;
+
+        cursor: pointer;
+    }
+    
+}

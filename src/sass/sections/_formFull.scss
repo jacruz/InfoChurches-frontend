@@ -1,0 +1,36 @@
+.form-full{
+    background-color: $color-secondary;
+    border:solid 1px $dark;
+    display: flex;
+    flex-flow: column nowrap;
+
+    height: 100%;
+    width: 100%;
+
+    position: absolute;
+    animation-timing-function: ease-in-out;
+
+    &-no-show{
+        display: none;
+    }
+    &-in{
+        animation: myMoveIn 0.7s;
+    }
+    &-out{
+        left: 100%;
+        animation: myMoveOut 0.5s;
+    }
+    
+    .header{
+        margin: 7px 7px 0;
+    }
+}
+
+@keyframes myMoveIn {
+    from {left: 100%;}
+    to {left: 0px;}
+}
+@keyframes myMoveOut {
+    from {left: 0px;}
+    to {left: 100%;}
+}

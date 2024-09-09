@@ -1,0 +1,41 @@
+//Colors
+$blue                         : #283898;
+$green                        : #16c98d;
+$red                          : #fa5e5b;
+$yellow                       : #feef6d;
+$yellow-dark                  : #e9ca3b;
+$yellow-opaque                : #827c4c;
+$orange                       : #fe7c08;
+$pink                         : #ff708e;
+$pink-opaque-1                : #f8d8e8;
+$pink-opaque-2                : #f8b8e8;
+$purple                       : #8e44ad;
+$gray                         : #95a5a6;
+$black                        : #000;
+$white                        : #fff;
+
+$dark                         : #1f1f1f;;
+$bright                       : #f3f3f3;
+
+$color-primary:$dark;
+$color-secondary:$bright;
+$color-contrast-primary:$yellow-dark;
+
+$color-text-primary: $dark;
+$color-text-secondary: $yellow-dark;
+$color-headings-1: $blue;
+$color-headings-2: $white;
+
+
+//fonts
+$font-primary:'Fredoka', sans-serif;
+$font-base-size:1em;
+$font-scale-ratio:1.3;
+$font-xs: calc(1em / (#{$font-scale-ratio} * #{$font-scale-ratio}));
+$font-sm: calc(1em / #{$font-scale-ratio});
+$font-md: calc(1em * #{$font-scale-ratio});
+$font-lg: calc(1em * #{$font-scale-ratio} * #{$font-scale-ratio});
+$font-xl: calc(1em * #{$font-scale-ratio} * #{$font-scale-ratio} * #{$font-scale-ratio});
+$font-xxl: calc(1em * #{$font-scale-ratio} * #{$font-scale-ratio} * #{$font-scale-ratio} * #{$font-scale-ratio});
+$font-xxxl: calc(1em * #{$font-scale-ratio} * #{$font-scale-ratio} * #{$font-scale-ratio} * #{$font-scale-ratio} * #{$font-scale-ratio});
+$font-xxxxl: calc(1em * #{$font-scale-ratio} * #{$font-scale-ratio} * #{$font-scale-ratio} * #{$font-scale-ratio} * #{$font-scale-ratio} * #{$font-scale-ratio});

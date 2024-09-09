@@ -1,0 +1,40 @@
+.input-icon-container{
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    padding: 15px 15px 0;
+
+    .fa{
+        font-size: $font-lg;
+    }
+
+    input {
+        border: none;
+        border-bottom: 1px solid $dark;
+    
+        background-color: transparent;
+        padding: 0.8em 10px;
+        color: $color-text-primary;
+    
+        outline: none;
+        margin: 0 10px 0 0;
+        width: 80%;
+    }
+    
+}
+
+.input-1 {
+    border: 1px solid $dark;
+    border-radius: 10px;
+
+    background-color: $bright;
+    padding: 0.7em 10px;
+    color: $color-text-primary;
+
+    outline: none;
+
+    font-family:inherit;
+}
