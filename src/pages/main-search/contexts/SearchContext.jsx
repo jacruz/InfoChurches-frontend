@@ -2,8 +2,8 @@ import { createContext, useReducer } from "react";
 import {getTimeObject} from '../utils/SearchUtils.js'
 
 const CONSTANTS = require("../../../utils/constants/Constants.js");
-export const SearchCriteria = createContext(null);
-export const SearchCriteriaDispatch = createContext(null);
+export const Search = createContext(null);
+export const SearchDispatch = createContext(null);
 
 //TODO Cargar datos de location desde GPS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const seachCriteriaDefault = {
@@ -16,18 +16,38 @@ const seachCriteriaDefault = {
     time:getTimeObject(new Date(),CONSTANTS.TIME_QUICK_INPUTS[0].label)
 };
 
-export function SearchCriteriaProvider({children}){
-    const [searchCriteria, dispatch] = useReducer(
+export function SearchProvider({children}){
+    const [searchCriteria, seachCriteriaDispatch] = useReducer(
         SearchCriteriaReducer,
         seachCriteriaDefault
     );
-    return(
-        <SearchCriteria.Provider value={searchCriteria}>
-            <SearchCriteriaDispatch.Provider value={dispatch}>
-                {children}
-            </SearchCriteriaDispatch.Provider>
-        </SearchCriteria.Provider>
+    const [searchResults, searchResultsDispatch] = useReducer(
+        SearchResultsReducer,
+        []
     );
+    const searchObjs = {searchCriteria, searchResults};
+    const serchDispatches = {seachCriteriaDispatch, searchResultsDispatch}
+    return(
+        <Search.Provider value={searchObjs}>
+            <SearchDispatch.Provider value={serchDispatches}>
+                {children}
+            </SearchDispatch.Provider>
+        </Search.Provider>
+    );
+}
+
+function SearchResultsReducer(searchResults, action){
+    switch(action.type){
+        case CONSTANTS.ACTION_UPDATE_SCHEDULE:{
+            return {
+                ...searchResults,
+                schedule_id : action.val
+            };
+        }
+        default:{
+            throw Error('Unknown action: ' + action.type);
+        }
+    }
 }
 
 function SearchCriteriaReducer(seachCriteria, action){

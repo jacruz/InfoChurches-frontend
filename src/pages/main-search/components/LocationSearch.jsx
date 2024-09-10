@@ -1,11 +1,11 @@
 import { useRef, useEffect, useState, useContext } from "react";
-import { SearchCriteria, SearchCriteriaDispatch } from "../contexts/SearchCriteriaContext";
+import { Search, SearchDispatch } from "../contexts/SearchContext.jsx";
 import { locationFavorites, locationRecent } from "../../../data/localStorage";
 
 export default function LocationSearch({onSelect}){
     const CONSTANTS = require("../../../utils/constants/Constants.js");
-    const searchCriteria = useContext(SearchCriteria);
-    const seachCriteriaDispatch = useContext(SearchCriteriaDispatch);
+    const {searchCriteria} = useContext(Search);
+    const {seachCriteriaDispatch} = useContext(SearchDispatch);
 
     const [lstFav, setLstFav] = useState([]);
     const [lstRecent, setLstRecent] = useState([]);
@@ -82,8 +82,6 @@ export default function LocationSearch({onSelect}){
                     onChange={handleChangeInputValue}
                 ></input>
                 <span className="y-space-10px"></span>
-                <p className="link-1"><span>Ubicar punto en el mapa <i className="fa fa-map-pin"></i> </span></p>
-                <span className="y-space-10px"></span>
                 <button
                     className="btn-1"
                     onClick={()=>handleConfirm()}
@@ -103,6 +101,10 @@ export default function LocationSearch({onSelect}){
                                     <i className="fa fa-heart"></i>
                                 </button>
                                 <p>{fav.label}</p>
+                                <button className="btn-icon-2" style={{visibility:'hidden'}}>
+                                    <i className="fa fa-minus-circle txt-larger-0"></i>
+                                </button>
+                                
                                 <button className="btn-icon-2" style={{visibility:'hidden'}}>
                                     <i className="fa fa-heart txt-larger-0"></i>
                                 </button>

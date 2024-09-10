@@ -1,16 +1,15 @@
 import MainSearch from "./pages/main-search/components/MainSearch";
 import Map from "./pages/main-search/components/Map";
-import { SearchCriteriaProvider } from "./pages/main-search/contexts/SearchCriteriaContext";
+import { SearchProvider } from "./pages/main-search/contexts/SearchContext";
 
 
 function App() {
   return (
     <div className="app">
-      <SearchCriteriaProvider>
+      <SearchProvider>
         <Map></Map>
-        <MainSearch>
-        </MainSearch>
-      </SearchCriteriaProvider>
+        <MainSearch></MainSearch>
+      </SearchProvider>
     </div>
   );
 }

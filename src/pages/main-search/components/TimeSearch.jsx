@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef } from "react";
-import { SearchCriteria, SearchCriteriaDispatch } from "../contexts/SearchCriteriaContext";
+import { Search, SearchDispatch } from "../contexts/SearchContext.jsx";
 import { addDays,subHours,setHours,setMinutes } from 'date-fns';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,8 +7,8 @@ import {getTimeObject} from '../utils/SearchUtils.js'
 
 export default function TimeSearch({onSelect}){
     const CONSTANTS = require("../../../utils/constants/Constants.js");
-    const searchCriteria = useContext(SearchCriteria);
-    const seachCriteriaDispatch = useContext(SearchCriteriaDispatch);
+    const {searchCriteria} = useContext(Search);
+    const {seachCriteriaDispatch} = useContext(SearchDispatch);
     const [startDate, setStartDate] = useState(new Date(searchCriteria.time.date));
     const [timeObject, setTimeObject] = useState(searchCriteria.time);
 

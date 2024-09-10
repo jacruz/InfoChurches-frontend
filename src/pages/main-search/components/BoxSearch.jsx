@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import { SearchCriteria, SearchCriteriaDispatch } from "../contexts/SearchCriteriaContext";
+import { Search, SearchDispatch } from "../contexts/SearchContext.jsx";
 import LinkText from "./LinkText.jsx";
 import TabMenu from "./TabMenu";
 
 export default function BoxSearch({onClickSearchCriteria}){
     
     const CONSTANTS = require("../../../utils/constants/Constants.js");
-    const searchCriteria = useContext(SearchCriteria);
-    const seachCriteriaDispatch = useContext(SearchCriteriaDispatch);
+    const {searchCriteria} = useContext(Search);
+    const {seachCriteriaDispatch} = useContext(SearchDispatch);
 
     const handleSelectedTabSchedule = (idTab)=>{
         seachCriteriaDispatch({
@@ -28,14 +28,14 @@ export default function BoxSearch({onClickSearchCriteria}){
                     icon={CONSTANTS.ICON_LOCATION}
                     onClick={()=>{onClickSearchCriteria(CONSTANTS.FORM_FULL_SHOW_LOCATION)}}
                 >
-                    {searchCriteria.location.label}
+                    <span className="text-yellow-dark ">Cerca a: </span>{searchCriteria.location.label}
                 </LinkText>
                 
                 <LinkText
                     icon={CONSTANTS.ICON_TIME}
                     onClick={()=>{onClickSearchCriteria(CONSTANTS.FORM_FULL_SHOW_TIME)}}
                 >
-                    {searchCriteria.time.label}
+                    <span className="text-yellow-dark ">¿Cuándo?: </span>{searchCriteria.time.label}
                 </LinkText>
             </div>
         </div>

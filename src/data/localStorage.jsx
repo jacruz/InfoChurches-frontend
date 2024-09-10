@@ -6,8 +6,8 @@ export const locationFavorites = [
     },
     {
         label:"Calle falsa 123",
-        lat: "4.643829",
-        lon: "-74.175382"
+        lat: "37.2105715",
+        lon: "-93.2851733"
     },
     {
         label:"Lorem ipsum",
