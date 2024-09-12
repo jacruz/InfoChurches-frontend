@@ -7,10 +7,10 @@ export default function BoxSearch({onClickSearchCriteria}){
     
     const CONSTANTS = require("../../../utils/constants/Constants.js");
     const {searchCriteria} = useContext(Search);
-    const {seachCriteriaDispatch} = useContext(SearchDispatch);
+    const {searchCriteriaDispatch} = useContext(SearchDispatch);
 
     const handleSelectedTabSchedule = (idTab)=>{
-        seachCriteriaDispatch({
+        searchCriteriaDispatch({
             type:CONSTANTS.ACTION_UPDATE_SCHEDULE,
             val:idTab
         });

@@ -1,5 +1,5 @@
 import MainSearch from "./pages/main-search/components/MainSearch";
-import Map from "./pages/main-search/components/Map";
+import Map from "./pages/main-search/components/MapComponent";
 import { SearchProvider } from "./pages/main-search/contexts/SearchContext";
 
 

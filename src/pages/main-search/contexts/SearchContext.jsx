@@ -1,5 +1,5 @@
 import { createContext, useReducer } from "react";
-import {getTimeObject} from '../utils/SearchUtils.js'
+import { getTimeObject } from '../utils/SearchUtils.js'
 
 const CONSTANTS = require("../../../utils/constants/Constants.js");
 export const Search = createContext(null);
@@ -17,7 +17,7 @@ const seachCriteriaDefault = {
 };
 
 export function SearchProvider({children}){
-    const [searchCriteria, seachCriteriaDispatch] = useReducer(
+    const [searchCriteria, searchCriteriaDispatch] = useReducer(
         SearchCriteriaReducer,
         seachCriteriaDefault
     );
@@ -26,7 +26,7 @@ export function SearchProvider({children}){
         []
     );
     const searchObjs = {searchCriteria, searchResults};
-    const serchDispatches = {seachCriteriaDispatch, searchResultsDispatch}
+    const serchDispatches = {searchCriteriaDispatch, searchResultsDispatch}
     return(
         <Search.Provider value={searchObjs}>
             <SearchDispatch.Provider value={serchDispatches}>
@@ -38,11 +38,10 @@ export function SearchProvider({children}){
 
 function SearchResultsReducer(searchResults, action){
     switch(action.type){
-        case CONSTANTS.ACTION_UPDATE_SCHEDULE:{
-            return {
-                ...searchResults,
-                schedule_id : action.val
-            };
+        case CONSTANTS.ACTION_UPDATE_RESULTS:{
+            return [
+                ...action.val
+            ];
         }
         default:{
             throw Error('Unknown action: ' + action.type);

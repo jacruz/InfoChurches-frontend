@@ -5,7 +5,7 @@ import { locationFavorites, locationRecent } from "../../../data/localStorage";
 export default function LocationSearch({onSelect}){
     const CONSTANTS = require("../../../utils/constants/Constants.js");
     const {searchCriteria} = useContext(Search);
-    const {seachCriteriaDispatch} = useContext(SearchDispatch);
+    const {searchCriteriaDispatch} = useContext(SearchDispatch);
 
     const [lstFav, setLstFav] = useState([]);
     const [lstRecent, setLstRecent] = useState([]);
@@ -65,7 +65,7 @@ export default function LocationSearch({onSelect}){
 
     //Actualizar SearchCriteria (y cerrar) al presionar en confirmar
     const handleConfirm=()=>{
-        seachCriteriaDispatch({
+        searchCriteriaDispatch({
             type:CONSTANTS.ACTION_UPDATE_LOCATION,
             val:locationObject
         });

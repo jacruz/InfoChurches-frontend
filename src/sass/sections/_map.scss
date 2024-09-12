@@ -1,5 +1,12 @@
-#gmap{
-    position: absolute;
-    top: 0;
-    left: 0;
+.gm-style-iw-t{
+    bottom: 50px !important;
+    .gm-style-iw{
+        padding: 12px !important;
+        .gm-style-iw-chr{
+            display: none;
+        }
+        .gm-style-iw-d{
+
+        }
+    }
 }

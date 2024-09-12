@@ -8,7 +8,7 @@ import {getTimeObject} from '../utils/SearchUtils.js'
 export default function TimeSearch({onSelect}){
     const CONSTANTS = require("../../../utils/constants/Constants.js");
     const {searchCriteria} = useContext(Search);
-    const {seachCriteriaDispatch} = useContext(SearchDispatch);
+    const {searchCriteriaDispatch} = useContext(SearchDispatch);
     const [startDate, setStartDate] = useState(new Date(searchCriteria.time.date));
     const [timeObject, setTimeObject] = useState(searchCriteria.time);
 
@@ -28,7 +28,7 @@ export default function TimeSearch({onSelect}){
     
     //Actualizar SearchCriteria (y cerrar) al presionar en confirmar
     const handleConfirm=()=>{
-        seachCriteriaDispatch({
+        searchCriteriaDispatch({
             type:CONSTANTS.ACTION_UPDATE_TIME,
             val:timeObject
         });

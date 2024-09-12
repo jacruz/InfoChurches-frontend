@@ -3,6 +3,7 @@
 
 # PENDIENTES:
 - Mostrar punto fijo en mapa
+- Cargar datos de location desde GPS en searchContext
 - Al mover mapa actualizar ubicación
 - Calcular parametro del API 'distance' según zoom del mapa
 
@@ -32,6 +33,6 @@
 #### React:
 - https://www.geeksforgeeks.org/reactjs-jsx-introduction/?ref=lbp
 - https://react.dev/learn/
-
+- https://medium.com/inato/how-to-develop-a-navigation-menu-with-react-context-9f4d14db3d55
 
 https://distancematrix.ai/es/geocoding-api-free
