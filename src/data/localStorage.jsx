@@ -10,9 +10,9 @@ export const locationFavorites = [
         lon: "-93.2851733"
     },
     {
-        label:"Lorem ipsum",
-        lat: "4.643829",
-        lon: "-74.175382"
+        label:"Milenio plaza",
+        lat: "4.630509646992537",
+        lon: "-74.16873425637789"
     },
     {
         label:"Otra dir mas",

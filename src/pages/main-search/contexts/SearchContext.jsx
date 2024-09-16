@@ -39,9 +39,14 @@ export function SearchProvider({children}){
 function SearchResultsReducer(searchResults, action){
     switch(action.type){
         case CONSTANTS.ACTION_UPDATE_RESULTS:{
-            return [
-                ...action.val
-            ];
+            if(action.val != null && typeof action.val[Symbol.iterator] === 'function' ){
+                return [
+                    ...action.val
+                ];
+            }else{
+                return [];
+            }
+            
         }
         default:{
             throw Error('Unknown action: ' + action.type);

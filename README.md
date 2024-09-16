@@ -2,15 +2,13 @@
 
 
 # PENDIENTES:
-- Mostrar punto fijo en mapa
-- Cargar datos de location desde GPS en searchContext
-- Al mover mapa actualizar ubicación
-- Calcular parametro del API 'distance' según zoom del mapa
-
-- Buscar en API y filtrar los resultados según filtros
+- Filtrar los resultados del API
 - Con los resultados pintar en el mapa los pines con los horarios
-- Ver preview de iglesia al presionar en los pines de resultado
-- Ver info completa de la iglesia
+- Al presionar en los pines de resultado ver info completa de la iglesia
+
+- Mostrar punto fijo en mapa
+- Al mover mapa actualizar ubicación 
+- Calcular parametro del API 'distance' según zoom del mapa
 
 - Implementar consumo API que arroja resultados según búsqueda en input de location
 - Implementar consumo API que arroja la dirección según punto en el mapa

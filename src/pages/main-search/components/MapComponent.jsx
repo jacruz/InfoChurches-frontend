@@ -1,10 +1,22 @@
-import { useContext, useEffect} from "react";
+import React, { useContext, useEffect, useRef } from 'react';
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { Search, SearchDispatch } from "../contexts/SearchContext.jsx";
-import {APIProvider, Map, AdvancedMarker, InfoWindow} from '@vis.gl/react-google-maps';
 import iconChurch from "../../../assets/img/church.png";
 
 export default function MapComponent(){
+    
+    const envGmapsApiKey = process.env.REACT_APP_GMAPS_API_KEY;
+    const envMapId = process.env.REACT_APP_MAP_ID;
 
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: envGmapsApiKey, // Reemplaza con tu clave de Google Maps
+    });
+
+    const mapRef = useRef(null);
+    function handleLoad(map) {
+        mapRef.current = map;
+    }
+    
     const CONSTANTS = require("../../../utils/constants/Constants.js");
     
     const {searchCriteria, searchResults} = useContext(Search);
@@ -27,45 +39,68 @@ export default function MapComponent(){
         }
         fetchChurches();
     },[lat, lon, searchResultsDispatch, CONSTANTS.ACTION_UPDATE_RESULTS]);
+    console.log(lat + ", " + lon);
 
-    const handleClick = ((poi) => {
+    const handleMarkerClick = (poi) => {
         console.log('marker clicked:', poi);
-    });
-    
+        // TODO: Al presionar en los pines de resultado ver info completa de la iglesia
+    };
+
+    function handleMapChanged() {
+        if (!mapRef.current) return;
+        const newPos = mapRef.current.getCenter().toJSON();
+        const newZoom = mapRef.current.getZoom();
+        console.log('camera changed:', newPos, 'zoom:', newZoom);
+        //TODO: Al mover mapa actualizar ubicación (Pero con holgura)
+    }
+
+    if (!isLoaded) 
+        return (
+        <div style={{height:"100%", display:"flex", flexFlow:"row-nowrap", justifyContent:"center", alignItems:"center"}}>
+            Loading...
+        </div>
+        );
+
     return (
         <>
-        <APIProvider apiKey={"AIzaSyCmRfD3kqu3Wfof4YJdywlAy7z86G3UN1E"}>
-            <Map
-            style={{width: '100%', height: '100%', position: "absolute", zindex: "0"}}
-            defaultCenter={{lat: Number(lat), lng: Number(lon)}}
-            defaultZoom={16}
-            mapId={"9e69ad9c27d923cc" || null}
-            gestureHandling={'greedy'}
-            disableDefaultUI={true}
-            onCameraChanged={ (ev) =>
-                console.log('camera changed:', ev.detail.center, 'zoom:', ev.detail.zoom)
-            }
+        <GoogleMap
+        center={{lat: Number(lat), lng: Number(lon)}}
+        zoom={16}
+        mapContainerStyle={{ width: '100%', height: '100%', position: "absolute", zindex: "0" }}
+        options={{
+            mapId: envMapId,
+            disableDefaultUI: true,
+            maxZoom: 18,
+            minZoom: 14
+        }}
+        onLoad={handleLoad}
+        onCenterChanged={handleMapChanged}
+        onZoomChanged={handleMapChanged}
+        >
+        {searchResults.map((poi, index) => (
+            <Marker
+            key={index}
+            position={{lat: Number(poi.location.lat), lng: Number(poi.location.lon)}}
+            onClick={() => handleMarkerClick(poi)}
+            icon={{
+                url:iconChurch,
+                scaledSize:  new window.google.maps.Size(30,30)
+            }}
             >
-                {searchResults.map( (poi) => (
-                    <AdvancedMarker
-                        key={poi.name}
-                        position={{lat: Number(poi.location.lat), lng: Number(poi.location.lon)}}
-                        clickable={true}
-                        onClick={()=>handleClick(poi)}
-                        title={poi.name}
-                    >
-                        <img alt={poi.name} src={iconChurch} style={{width:"40px"}}></img>
-                        <InfoWindow
-                            maxWidth={200}
-                            position={{lat: Number(poi.location.lat), lng: Number(poi.location.lon)}}
-                            >
-                            <div onClick={()=>handleClick(poi)}>{poi.name}</div>
-                        </InfoWindow>
-                    </AdvancedMarker>
-                ))}
-
-            </Map>
-        </APIProvider>
+                <InfoWindow
+                position={{lat: Number(poi.location.lat), lng: Number(poi.location.lon)}}
+                options={{ disableAutoPan: true }} // Evitar que el mapa se recoloque automáticamente
+                >
+                <div
+                className='infoWindow-content'
+                onClick={()=>handleMarkerClick(poi)}
+                >
+                    <span>{poi.name}</span  >
+                </div>
+                </InfoWindow>
+            </Marker>
+        ))}
+        </GoogleMap>
         </>
     );
-}
+};

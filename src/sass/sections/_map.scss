@@ -1,12 +1,13 @@
 .gm-style-iw-t{
-    bottom: 50px !important;
+    bottom: 45px !important;
     .gm-style-iw{
-        padding: 12px !important;
+        padding: 0 !important;
         .gm-style-iw-chr{
             display: none;
         }
-        .gm-style-iw-d{
-
+        .infoWindow-content{
+            cursor: pointer;
+            padding: 5px;
         }
     }
 }
