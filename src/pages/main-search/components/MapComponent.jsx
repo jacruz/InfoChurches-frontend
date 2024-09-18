@@ -2,44 +2,62 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { Search, SearchDispatch } from "../contexts/SearchContext.jsx";
 import iconChurch from "../../../assets/img/church.png";
+import {isDayInScheduleValue,formatTime24To12} from '../utils/SearchUtils.js'
 
 export default function MapComponent(){
     
-    const envGmapsApiKey = process.env.REACT_APP_GMAPS_API_KEY;
-    const envMapId = process.env.REACT_APP_MAP_ID;
-
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: envGmapsApiKey, // Reemplaza con tu clave de Google Maps
-    });
-
-    const mapRef = useRef(null);
-    function handleLoad(map) {
-        mapRef.current = map;
-    }
-    
     const CONSTANTS = require("../../../utils/constants/Constants.js");
+    const ENV_GMAPS_API_KEY = process.env.REACT_APP_GMAPS_API_KEY;
+    const ENV_MAP_ID = process.env.REACT_APP_MAP_ID;
+    const ENV_URL_SERVER = process.env.REACT_APP_URL_SERVER;
+    
+    const mapRef = useRef(null);
     
     const {searchCriteria, searchResults} = useContext(Search);
     const {searchResultsDispatch} = useContext(SearchDispatch);
     let lat = searchCriteria.location.lat;
     let lon = searchCriteria.location.lon;
+    let scheduleIdSelected = searchCriteria.schedule_id;
+    let idDayOfWeekSelected = searchCriteria.time.id_day_of_week;
 
+    const url = ENV_URL_SERVER+"/api/v1/churches/nearby-search?lat="+lat+"&lon="+lon+"&distance=4";
+    const searchResultsFiltered = useRef(searchResults);
+
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: ENV_GMAPS_API_KEY,
+    });
+    
     useEffect(()=>{
         const fetchChurches = async () => {
-            const url = "http://localhost:3000/api/v1/churches/nearby-search?lat="+lat+"&lon="+lon+"&distance=2";
             const res = await fetch(url, {
                 'mode': 'cors'
             });
             const data = await res.json();
             console.log(data);
+
+            console.log(scheduleIdSelected);
+
+            //Filtrar resultado según cuadro de búsqueda
+            searchResultsFiltered.current = data.filter((el)=>{
+                if(el.schedules.find( (schedule)=> Number(schedule.id) === Number(scheduleIdSelected) ) ){
+                    return el;
+                }
+                return null;
+            });
+            console.log(searchResultsFiltered.current);
+
             await searchResultsDispatch({
                 type:CONSTANTS.ACTION_UPDATE_RESULTS,
                 val:data
             });
         }
         fetchChurches();
-    },[lat, lon, searchResultsDispatch, CONSTANTS.ACTION_UPDATE_RESULTS]);
+    },[url, scheduleIdSelected, searchResultsDispatch, CONSTANTS.ACTION_UPDATE_RESULTS]);
     console.log(lat + ", " + lon);
+    
+    function handleLoad(map) {
+        mapRef.current = map;
+    }
 
     const handleMarkerClick = (poi) => {
         console.log('marker clicked:', poi);
@@ -56,8 +74,9 @@ export default function MapComponent(){
 
     if (!isLoaded) 
         return (
-        <div style={{height:"100%", display:"flex", flexFlow:"row-nowrap", justifyContent:"center", alignItems:"center"}}>
-            Loading...
+        <div style={{height:"100%", display:"flex", flexFlow:"column", justifyContent:"center", alignItems:"center"}}>
+            <p>Loading...</p>
+            <img alt='icon-loading' src={iconChurch} style={{width:'80px'}} ></img>
         </div>
         );
 
@@ -68,7 +87,7 @@ export default function MapComponent(){
         zoom={16}
         mapContainerStyle={{ width: '100%', height: '100%', position: "absolute", zindex: "0" }}
         options={{
-            mapId: envMapId,
+            mapId: ENV_MAP_ID,
             disableDefaultUI: true,
             maxZoom: 18,
             minZoom: 14
@@ -77,7 +96,7 @@ export default function MapComponent(){
         onCenterChanged={handleMapChanged}
         onZoomChanged={handleMapChanged}
         >
-        {searchResults.map((poi, index) => (
+        {searchResults.map((poi,index) => (
             <Marker
             key={index}
             position={{lat: Number(poi.location.lat), lng: Number(poi.location.lon)}}
@@ -89,15 +108,46 @@ export default function MapComponent(){
             >
                 <InfoWindow
                 position={{lat: Number(poi.location.lat), lng: Number(poi.location.lon)}}
-                options={{ disableAutoPan: true }} // Evitar que el mapa se recoloque automáticamente
+                options={{ disableAutoPan: true }}
                 >
                 <div
                 className='infoWindow-content'
                 onClick={()=>handleMarkerClick(poi)}
                 >
-                    <span>{poi.name}</span  >
+                    {(poi.schedules.find( (schedule)=> Number(schedule.id) === Number(scheduleIdSelected) ) !== undefined ) 
+                    ?
+                    <div>
+                        {poi.schedules.map((schedule)=>(
+                            
+                            (Number(schedule.id) === Number(scheduleIdSelected)) &&
+                            <div
+                            key={schedule.id}
+                            >
+                                {schedule.value.map((scheduleValue)=>(
+                                        <div
+                                        key={scheduleValue.id}
+                                        >
+                                            { (isDayInScheduleValue(idDayOfWeekSelected, scheduleValue))
+                                                ?
+                                                scheduleValue.times.map((time)=>(
+                                                    <p>{time.start?formatTime24To12(time.start):''}{time.end?'-'+formatTime24To12(time.end):''}</p>
+                                                ))
+                                                
+                                                :
+                                                <p> - X - </p>
+                                            }
+                                            
+                                        </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                    :
+                    <span> - - - </span>
+                    }
                 </div>
                 </InfoWindow>
+            
             </Marker>
         ))}
         </GoogleMap>

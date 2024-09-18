@@ -2,6 +2,10 @@
 
 
 # PENDIENTES:
+
+- Si no tiene resultados no mostrar globo y cambiar ícono
+- Completar filtro de hora
+
 - Filtrar los resultados del API
 - Con los resultados pintar en el mapa los pines con los horarios
 - Al presionar en los pines de resultado ver info completa de la iglesia

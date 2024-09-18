@@ -19,7 +19,7 @@ export default function BoxSearch({onClickSearchCriteria}){
     return (
         <div className="box-search">
             <TabMenu 
-                dataTabMenu={CONSTANTS.BOX_SEARCH_DATA_TAB_MENU}
+                dataTabMenu={CONSTANTS.SEARCH_DATA_SCHEDULES}
                 idTabSelected={searchCriteria.schedule_id}
                 callbackHandleSelectedTab={handleSelectedTabSchedule}
             ></TabMenu>
@@ -35,7 +35,7 @@ export default function BoxSearch({onClickSearchCriteria}){
                     icon={CONSTANTS.ICON_TIME}
                     onClick={()=>{onClickSearchCriteria(CONSTANTS.FORM_FULL_SHOW_TIME)}}
                 >
-                    <span className="text-yellow-dark ">¿Cuándo?: </span>{searchCriteria.time.label}
+                    <span className="text-yellow-dark ">¿Cuándo?: </span>{searchCriteria.time.label===searchCriteria.time.date?' Desde ':''}{searchCriteria.time.label}
                 </LinkText>
             </div>
         </div>

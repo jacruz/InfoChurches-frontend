@@ -59,25 +59,25 @@ export const timeRecent = [
     {
         label:"01/08/2024 1:00 PM",
         date:"01/08/2024 1:00 PM",
-        days_of_week:"monday",
+        id_day_of_week:"monday",
         start_time:"13:00"
     },
     {
         label:"02/08/2024 2:00 PM",
         date:"02/08/2024 2:00 PM",
-        days_of_week:"monday",
+        id_day_of_week:"monday",
         start_time:"14:00"
     },
     {
         label:"03/08/2024 3:00 PM",
         date:"03/08/2024 3:00 PM",
-        days_of_week:"monday",
+        id_day_of_week:"monday",
         start_time:"15:00"
     },
     {
         label:"04/08/2024 4:00 PM",
         date:"04/08/2024 4:00 PM",
-        days_of_week:"monday",
+        id_day_of_week:"monday",
         start_time:"16:00"
     },
 
