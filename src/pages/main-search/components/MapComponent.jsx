@@ -3,6 +3,7 @@ import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps
 import { Search, SearchDispatch } from "../contexts/SearchContext.jsx";
 import iconChurch from "../../../assets/img/church.png";
 import iconChurchDisabled from "../../../assets/img/church-disabled.png";
+import point from "../../../assets/img/point.gif";
 import {isSearchCriteriaTimeInScheduleValue,formatTime24To12} from '../utils/SearchUtils.js'
 import {getDistanceFromLatLonInKm} from '../utils/distanceCalculator.js'
 
@@ -77,7 +78,7 @@ export default function MapComponent(){
 
     const handleMarkerClick = (poi) => {
         console.log('marker clicked:', poi);
-        // TODO: Al presionar en los pines de resultado ver info completa de la iglesia
+        
     };
 
     function handleMapChanged() {
@@ -102,8 +103,6 @@ export default function MapComponent(){
                 val:locationObject
             });
         }
-
-        //TODO: Al mover mapa actualizar ubicación (Pero con holgura)
     }
 
     function isShowDataPoi(poi){
@@ -207,6 +206,17 @@ export default function MapComponent(){
             </Marker>
         ))}
         </GoogleMap>
+
+        {/* Imagen flotante sobre el mapa */}
+        <div
+        className='point-center'
+        >
+            <img
+            src={point}
+            alt="o"
+            />
+        </div>
+
         </>
     );
 };

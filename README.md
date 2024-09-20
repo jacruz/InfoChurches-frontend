@@ -10,7 +10,6 @@
 - Limitar height (Solo estilo mobile)
 
 ### No funcional
-- Mostrar punto fijo en mapa
 - Acumular los nuevos pines encontrados
 - Ordenar resultados en infoWindow por horas
 - Actualizar imágenes
