@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { Search, SearchDispatch } from "../contexts/SearchContext.jsx";
 import iconChurch from "../../../assets/img/church.png";
-import {isDayInScheduleValue,formatTime24To12} from '../utils/SearchUtils.js'
+import iconChurchDisabled from "../../../assets/img/church-disabled.png";
+import {isSearchCriteriaTimeInScheduleValue,formatTime24To12} from '../utils/SearchUtils.js'
+import {getDistanceFromLatLonInKm} from '../utils/distanceCalculator.js'
 
 export default function MapComponent(){
     
@@ -14,13 +16,13 @@ export default function MapComponent(){
     const mapRef = useRef(null);
     
     const {searchCriteria, searchResults} = useContext(Search);
-    const {searchResultsDispatch} = useContext(SearchDispatch);
+    const {searchResultsDispatch, searchCriteriaDispatch} = useContext(SearchDispatch);
     let lat = searchCriteria.location.lat;
     let lon = searchCriteria.location.lon;
+    let distance = CONSTANTS.DEFAULT_DISTANCE_NEARBY_SEARCH;
     let scheduleIdSelected = searchCriteria.schedule_id;
-    let idDayOfWeekSelected = searchCriteria.time.id_day_of_week;
 
-    const url = ENV_URL_SERVER+"/api/v1/churches/nearby-search?lat="+lat+"&lon="+lon+"&distance=4";
+    const url = ENV_URL_SERVER+"/api/v1/churches/nearby-search?lat="+lat+"&lon="+lon+"&distance="+distance;
     const searchResultsFiltered = useRef(searchResults);
 
     const { isLoaded } = useLoadScript({
@@ -32,24 +34,25 @@ export default function MapComponent(){
             const res = await fetch(url, {
                 'mode': 'cors'
             });
-            const data = await res.json();
-            console.log(data);
-
-            console.log(scheduleIdSelected);
-
-            //Filtrar resultado según cuadro de búsqueda
-            searchResultsFiltered.current = data.filter((el)=>{
-                if(el.schedules.find( (schedule)=> Number(schedule.id) === Number(scheduleIdSelected) ) ){
-                    return el;
-                }
-                return null;
-            });
-            console.log(searchResultsFiltered.current);
-
-            await searchResultsDispatch({
-                type:CONSTANTS.ACTION_UPDATE_RESULTS,
-                val:data
-            });
+            if(res.status===200){
+                const data = await res.json();
+                console.log(data);
+    
+                //Filtrar resultado según cuadro de búsqueda
+                searchResultsFiltered.current = data.filter((el)=>{
+                    if(el.schedules.find( (schedule)=> Number(schedule.id) === Number(scheduleIdSelected) ) ){
+                        return el;
+                    }
+                    return null;
+                });
+                console.log(searchResultsFiltered.current);
+    
+                await searchResultsDispatch({
+                    type:CONSTANTS.ACTION_UPDATE_RESULTS,
+                    val:data
+                });
+            }
+            
         }
         fetchChurches();
     },[url, scheduleIdSelected, searchResultsDispatch, CONSTANTS.ACTION_UPDATE_RESULTS]);
@@ -57,6 +60,19 @@ export default function MapComponent(){
     
     function handleLoad(map) {
         mapRef.current = map;
+        navigator?.geolocation.getCurrentPosition(
+            ({ coords: { latitude: lat, longitude: lng } }) => {
+                const locationObject = {
+                    label:"Mi ubicación",
+                    lat: lat,
+                    lon: lng
+                }
+                searchCriteriaDispatch({
+                    type:CONSTANTS.ACTION_UPDATE_LOCATION,
+                    val:locationObject
+                });
+            }
+        );
     }
 
     const handleMarkerClick = (poi) => {
@@ -69,7 +85,34 @@ export default function MapComponent(){
         const newPos = mapRef.current.getCenter().toJSON();
         const newZoom = mapRef.current.getZoom();
         console.log('camera changed:', newPos, 'zoom:', newZoom);
+
+        const newDistanceFromPrev = getDistanceFromLatLonInKm(lat,lon, newPos.lat, newPos.lng);
+        console.log(newDistanceFromPrev)
+        if(newDistanceFromPrev > distance/2){//Mayor a la mitad de la distancia buscada antes? vuelva a buscar
+            console.log("Tiene que actualizar!")
+            lat = newPos.lat;
+            lon = newPos.lng;
+            const locationObject = {
+                label:"Ubicación de usuario",
+                lat: newPos.lat,
+                lon: newPos.lng
+            }
+            searchCriteriaDispatch({
+                type:CONSTANTS.ACTION_UPDATE_LOCATION,
+                val:locationObject
+            });
+        }
+
         //TODO: Al mover mapa actualizar ubicación (Pero con holgura)
+    }
+
+    function isShowDataPoi(poi){
+        return poi.schedules.some(schedule => 
+            Number(schedule.id) === Number(scheduleIdSelected) &&
+            schedule.value.some(scheduleValue => 
+                isSearchCriteriaTimeInScheduleValue(searchCriteria.time, scheduleValue)
+            )
+        )
     }
 
     if (!isLoaded) 
@@ -90,63 +133,76 @@ export default function MapComponent(){
             mapId: ENV_MAP_ID,
             disableDefaultUI: true,
             maxZoom: 18,
-            minZoom: 14
+            minZoom: 15
         }}
         onLoad={handleLoad}
         onCenterChanged={handleMapChanged}
         onZoomChanged={handleMapChanged}
         >
         {searchResults.map((poi,index) => (
+
             <Marker
             key={index}
             position={{lat: Number(poi.location.lat), lng: Number(poi.location.lon)}}
             onClick={() => handleMarkerClick(poi)}
-            icon={{
-                url:iconChurch,
-                scaledSize:  new window.google.maps.Size(30,30)
-            }}
-            >
-                <InfoWindow
-                position={{lat: Number(poi.location.lat), lng: Number(poi.location.lon)}}
-                options={{ disableAutoPan: true }}
-                >
-                <div
-                className='infoWindow-content'
-                onClick={()=>handleMarkerClick(poi)}
-                >
-                    {(poi.schedules.find( (schedule)=> Number(schedule.id) === Number(scheduleIdSelected) ) !== undefined ) 
-                    ?
-                    <div>
-                        {poi.schedules.map((schedule)=>(
-                            
-                            (Number(schedule.id) === Number(scheduleIdSelected)) &&
-                            <div
-                            key={schedule.id}
-                            >
-                                {schedule.value.map((scheduleValue)=>(
-                                        <div
-                                        key={scheduleValue.id}
-                                        >
-                                            { (isDayInScheduleValue(idDayOfWeekSelected, scheduleValue))
-                                                ?
-                                                scheduleValue.times.map((time)=>(
-                                                    <p>{time.start?formatTime24To12(time.start):''}{time.end?'-'+formatTime24To12(time.end):''}</p>
-                                                ))
-                                                
-                                                :
-                                                <p> - X - </p>
-                                            }
-                                            
-                                        </div>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
-                    :
-                    <span> - - - </span>
+            icon={
+                isShowDataPoi(poi)
+                ?
+                    {
+                    url:iconChurch,
+                    scaledSize:  new window.google.maps.Size(30,30)
                     }
-                </div>
-                </InfoWindow>
+                :
+                {
+                    url:iconChurchDisabled,
+                    scaledSize:  new window.google.maps.Size(30,30)
+                }
+            }
+            >
+                {
+                    isShowDataPoi(poi) &&
+
+                    <InfoWindow
+                    position={{lat: Number(poi.location.lat), lng: Number(poi.location.lon)}}
+                    options={{ disableAutoPan: true }}
+                    >
+                    <div
+                    className='infoWindow-content'
+                    onClick={()=>handleMarkerClick(poi)}
+                    >
+                        
+                        <div>
+                            {poi.schedules.map((schedule)=>(
+                                
+                                (Number(schedule.id) === Number(scheduleIdSelected)) &&
+                                <div
+                                key={schedule.name}
+                                >
+                                    {schedule.value.map((scheduleValue)=>(
+                                            <div
+                                            key={scheduleValue.id}
+                                            >
+                                                { (isSearchCriteriaTimeInScheduleValue(searchCriteria.time, scheduleValue))
+                                                    ?
+                                                    scheduleValue.times.map((time)=>(
+                                                        <p key={scheduleValue.id+time.start}
+                                                        >{time.start?formatTime24To12(time.start):''}{time.end?'-'+formatTime24To12(time.end):''}</p>
+                                                    ))
+                                                    
+                                                    :
+                                                    null
+                                                }
+                                                
+                                            </div>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+
+                    </div>
+                    </InfoWindow>
+                }
+                
             
             </Marker>
         ))}

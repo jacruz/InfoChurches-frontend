@@ -3,22 +3,23 @@
 
 # PENDIENTES:
 
-- Si no tiene resultados no mostrar globo y cambiar ícono
-- Completar filtro de hora
+## v1
 
-- Filtrar los resultados del API
-- Con los resultados pintar en el mapa los pines con los horarios
+### Funcional
 - Al presionar en los pines de resultado ver info completa de la iglesia
+- Limitar height (Solo estilo mobile)
 
+### No funcional
 - Mostrar punto fijo en mapa
-- Al mover mapa actualizar ubicación 
-- Calcular parametro del API 'distance' según zoom del mapa
+- Acumular los nuevos pines encontrados
+- Ordenar resultados en infoWindow por horas
+- Actualizar imágenes
 
-- Implementar consumo API que arroja resultados según búsqueda en input de location
+## v2
+- Búsquedas recientes, favoritos
 - Implementar consumo API que arroja la dirección según punto en el mapa
-- Ajustar desktop vs mobile
-
-
+- Implementar consumo API que arroja resultados según búsqueda en input de location
+- Implementar responsive
 
 
 

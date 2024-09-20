@@ -10,8 +10,8 @@ const seachCriteriaDefault = {
     schedule_id:10,//9:mass. Se seleccionará en el TabMenu
     location:{
         label:"Mi ubicación",//Lo que se visualiza en el input de consulta
-        lat: "4.643829",
-        lon: "-74.175382"
+        lat: "4.67229115",
+        lon: "-74.14368689"
     },
     time:getTimeObject(new Date(),CONSTANTS.TIME_QUICK_INPUTS[0].label)
 };

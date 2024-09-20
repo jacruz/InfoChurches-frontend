@@ -24,12 +24,13 @@ export default function BoxSearch({onClickSearchCriteria}){
                 callbackHandleSelectedTab={handleSelectedTabSchedule}
             ></TabMenu>
             <div className="box-search-label">
-                <LinkText
+                {false && <LinkText
                     icon={CONSTANTS.ICON_LOCATION}
                     onClick={()=>{onClickSearchCriteria(CONSTANTS.FORM_FULL_SHOW_LOCATION)}}
                 >
                     <span className="text-yellow-dark ">Cerca a: </span>{searchCriteria.location.label}
                 </LinkText>
+                }
                 
                 <LinkText
                     icon={CONSTANTS.ICON_TIME}

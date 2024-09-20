@@ -84,6 +84,9 @@ module.exports = {
 
     ],
 
+    //Location
+    DEFAULT_DISTANCE_NEARBY_SEARCH : 4,
+
     //actions para case de reducers
     ACTION_UPDATE_SCHEDULE : "update_schedule",
     ACTION_UPDATE_LOCATION : "update_location",

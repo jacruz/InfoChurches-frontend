@@ -15,9 +15,9 @@ export const locationFavorites = [
         lon: "-74.16873425637789"
     },
     {
-        label:"Otra dir mas",
-        lat: "4.643829",
-        lon: "-74.175382"
+        label:"Hayuelos Centro comercial",
+        lat: "4.664427258553322",
+        lon: "-74.13123722344652"
     },
 ]
 

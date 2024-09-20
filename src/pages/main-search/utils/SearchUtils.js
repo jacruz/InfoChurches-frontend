@@ -14,14 +14,31 @@ export function getTimeObject(date, label){
     return time;
 }
 
-export function isDayInScheduleValue(idDay, objScheduleValue){
+export function isSearchCriteriaTimeInScheduleValue(objSearchCriteriaTime, objScheduleValue){
+    const res = isDayInScheduleValue(objSearchCriteriaTime, objScheduleValue) 
+                &&
+                isTimeInScheduleValue(objSearchCriteriaTime, objScheduleValue);
+    return res;
+}
+
+export function isDayInScheduleValue(objSearchCriteriaTime, objScheduleValue){
     const res = CONSTANTS.WEEKDAY_QUICK_CONFIGS.find((el)=>{
         if(el.id_dom_val === objScheduleValue.id){
-            if(el.include_ids.includes(idDay))
+            if(el.include_ids.includes(objSearchCriteriaTime.id_day_of_week))
                 return true;
         }
         return false;
     })
+    //console.log(res?true:false,objSearchCriteriaTime.id_day_of_week,objScheduleValue);
+    return res?true:false;
+}
+
+export function isTimeInScheduleValue(objSearchCriteriaTime, objScheduleValue){
+    const res = objScheduleValue.times.some(el=>{
+        //console.log(objSearchCriteriaTime.start_time,el.start,el.end);
+        return (el.start > objSearchCriteriaTime.start_time) || (el.end? (objSearchCriteriaTime.start_time < el.end) : true);
+    });
+    //console.log(res?true:false, objSearchCriteriaTime.start_time);
     return res?true:false;
 }
 
