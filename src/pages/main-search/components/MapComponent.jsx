@@ -7,7 +7,7 @@ import point from "../../../assets/img/point.gif";
 import {isSearchCriteriaTimeInScheduleValue,formatTime24To12} from '../utils/SearchUtils.js'
 import {getDistanceFromLatLonInKm} from '../utils/distanceCalculator.js'
 
-export default function MapComponent(){
+export default function MapComponent({onSelectPoi}){
     
     const CONSTANTS = require("../../../utils/constants/Constants.js");
     const ENV_GMAPS_API_KEY = process.env.REACT_APP_GMAPS_API_KEY;
@@ -46,7 +46,6 @@ export default function MapComponent(){
                     }
                     return null;
                 });
-                console.log(searchResultsFiltered.current);
     
                 await searchResultsDispatch({
                     type:CONSTANTS.ACTION_UPDATE_RESULTS,
@@ -57,7 +56,7 @@ export default function MapComponent(){
         }
         fetchChurches();
     },[url, scheduleIdSelected, searchResultsDispatch, CONSTANTS.ACTION_UPDATE_RESULTS]);
-    console.log(lat + ", " + lon);
+    //console.log(lat + ", " + lon);
     
     function handleLoad(map) {
         mapRef.current = map;
@@ -77,20 +76,19 @@ export default function MapComponent(){
     }
 
     const handleMarkerClick = (poi) => {
-        console.log('marker clicked:', poi);
-        
+        onSelectPoi(poi);
+        console.log('click',poi);
     };
 
     function handleMapChanged() {
         if (!mapRef.current) return;
         const newPos = mapRef.current.getCenter().toJSON();
-        const newZoom = mapRef.current.getZoom();
-        console.log('camera changed:', newPos, 'zoom:', newZoom);
-
+        //const newZoom = mapRef.current.getZoom();
         const newDistanceFromPrev = getDistanceFromLatLonInKm(lat,lon, newPos.lat, newPos.lng);
-        console.log(newDistanceFromPrev)
+        //console.log('camera changed:', newPos, 'zoom:', newZoom, 'newDistanceFromPrev:', newDistanceFromPrev);
+
         if(newDistanceFromPrev > distance/2){//Mayor a la mitad de la distancia buscada antes? vuelva a buscar
-            console.log("Tiene que actualizar!")
+            console.log("Actualizando!")
             lat = newPos.lat;
             lon = newPos.lng;
             const locationObject = {
@@ -125,49 +123,50 @@ export default function MapComponent(){
     return (
         <>
         <GoogleMap
-        center={{lat: Number(lat), lng: Number(lon)}}
-        zoom={16}
-        mapContainerStyle={{ width: '100%', height: '100%', position: "absolute", zindex: "0" }}
-        options={{
-            mapId: ENV_MAP_ID,
-            disableDefaultUI: true,
-            maxZoom: 18,
-            minZoom: 15
-        }}
-        onLoad={handleLoad}
-        onCenterChanged={handleMapChanged}
-        onZoomChanged={handleMapChanged}
+            center={{lat: Number(lat), lng: Number(lon)}}
+            zoom={16}
+            mapContainerStyle={{ width: '100%', height: '100%', position: "absolute", zindex: "0" }}
+            options={{
+                mapId: ENV_MAP_ID,
+                disableDefaultUI: true,
+                maxZoom: 18,
+                minZoom: 15
+            }}
+            onLoad={handleLoad}
+            onCenterChanged={handleMapChanged}
+            onZoomChanged={handleMapChanged}
         >
         {searchResults.map((poi,index) => (
 
             <Marker
-            key={index}
-            position={{lat: Number(poi.location.lat), lng: Number(poi.location.lon)}}
-            onClick={() => handleMarkerClick(poi)}
-            icon={
-                isShowDataPoi(poi)
-                ?
+                key={index}
+                position={{lat: Number(poi.location.lat), lng: Number(poi.location.lon)}}
+                onClick={() => handleMarkerClick(poi)}
+                title={poi.name}
+                icon={
+                    isShowDataPoi(poi)
+                    ?
+                        {
+                        url:iconChurch,
+                        scaledSize:  new window.google.maps.Size(30,30)
+                        }
+                    :
                     {
-                    url:iconChurch,
-                    scaledSize:  new window.google.maps.Size(30,30)
+                        url:iconChurchDisabled,
+                        scaledSize:  new window.google.maps.Size(30,30)
                     }
-                :
-                {
-                    url:iconChurchDisabled,
-                    scaledSize:  new window.google.maps.Size(30,30)
                 }
-            }
             >
                 {
                     isShowDataPoi(poi) &&
 
                     <InfoWindow
-                    position={{lat: Number(poi.location.lat), lng: Number(poi.location.lon)}}
-                    options={{ disableAutoPan: true }}
+                        position={{lat: Number(poi.location.lat), lng: Number(poi.location.lon)}}
+                        options={{ disableAutoPan: true }}
                     >
                     <div
-                    className='infoWindow-content'
-                    onClick={()=>handleMarkerClick(poi)}
+                        className='infoWindow-content'
+                        onClick={()=>handleMarkerClick(poi)}
                     >
                         
                         <div>
@@ -175,11 +174,11 @@ export default function MapComponent(){
                                 
                                 (Number(schedule.id) === Number(scheduleIdSelected)) &&
                                 <div
-                                key={schedule.name}
+                                    key={schedule.name}
                                 >
                                     {schedule.value.map((scheduleValue)=>(
                                             <div
-                                            key={scheduleValue.id}
+                                                key={scheduleValue.id}
                                             >
                                                 { (isSearchCriteriaTimeInScheduleValue(searchCriteria.time, scheduleValue))
                                                     ?
@@ -209,11 +208,11 @@ export default function MapComponent(){
 
         {/* Imagen flotante sobre el mapa */}
         <div
-        className='point-center'
+            className='point-center'
         >
             <img
-            src={point}
-            alt="o"
+                src={point}
+                alt="o"
             />
         </div>
 

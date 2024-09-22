@@ -8,16 +8,19 @@
 ### Funcional
 - Al presionar en los pines de resultado ver info completa de la iglesia
 - Limitar height (Solo estilo mobile)
+- Manejo de error si no hay back
 
 ### No funcional
 - Acumular los nuevos pines encontrados
 - Ordenar resultados en infoWindow por horas
 - Actualizar imágenes
+- Mostrar Distancia desde donde????
 
 ## v2
-- Búsquedas recientes, favoritos
+- Cambio de idioma
 - Implementar consumo API que arroja la dirección según punto en el mapa
 - Implementar consumo API que arroja resultados según búsqueda en input de location
+- Búsquedas recientes, favoritos
 - Implementar responsive
 
 

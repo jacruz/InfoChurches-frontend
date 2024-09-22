@@ -10,13 +10,17 @@ export default function MainSearch(){
     const [showFormFull, setShowFormFull] = useState(CONSTANTS.FORM_FULL_NO_SHOW);
     let classFormFull = '';
     
-    //Calcular estado de muestra del form de búsqueda [location | time]
-    if(showFormFull === CONSTANTS.FORM_FULL_SHOW_LOCATION || showFormFull === CONSTANTS.FORM_FULL_SHOW_TIME ){
-        classFormFull = 'form-full form-full-in';
-    }else if(showFormFull === CONSTANTS.FORM_FULL_CLOSE){
-        classFormFull = 'form-full form-full-out';
-    }else{//showFormFull === CONSTANTS.FORM_FULL_NO_SHOW
-        classFormFull = 'form-full form-full-no-show';
+    //Calcular estado de muestra del form full de búsqueda [location | time]
+    switch(showFormFull){
+        case CONSTANTS.FORM_FULL_NO_SHOW:
+            classFormFull = 'form-full form-full-no-show';
+            break;
+        case CONSTANTS.FORM_FULL_CLOSE:
+            classFormFull = 'form-full form-full-out';
+            break;
+        default://CONSTANTS.FORM_FULL_SHOW_LOCATION || CONSTANTS.FORM_FULL_SHOW_TIME
+            classFormFull = 'form-full form-full-in';
+            break;
     }
 
     const handleFormToShow = (formToShow)=>{
@@ -24,7 +28,7 @@ export default function MainSearch(){
     }
     
     return(
-        <div className="main-search">
+        <div>
             <BoxSearch
                 onClickSearchCriteria={handleFormToShow}
             >

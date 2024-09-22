@@ -102,6 +102,7 @@ module.exports = {
     FORM_FULL_CLOSE : "1",
     FORM_FULL_SHOW_LOCATION : "2",
     FORM_FULL_SHOW_TIME : "3",
+    FORM_FULL_SHOW_POI : "4",
 
     //Botones rápidos pre-configurados para el input de horario
     TIME_QUICK_INPUTS : [

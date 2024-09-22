@@ -1,5 +1,5 @@
+import MainMap from "./pages/main-search/components/MainMap";
 import MainSearch from "./pages/main-search/components/MainSearch";
-import Map from "./pages/main-search/components/MapComponent";
 import { SearchProvider } from "./pages/main-search/contexts/SearchContext";
 
 
@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="app">
       <SearchProvider>
-        <Map></Map>
+        <MainMap></MainMap>
         <MainSearch></MainSearch>
       </SearchProvider>
     </div>
