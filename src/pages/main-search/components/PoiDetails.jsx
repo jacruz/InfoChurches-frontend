@@ -7,8 +7,8 @@ export default function PoiDetails({poi}){
                     className="img-container"
                 >
                     {poi.img?<img alt="Poi" src={poi.img}/>:null}
-                    <div class="distance-info">{poi.location.distance.value.toFixed(1)} km</div>
-                    <div class="indications-info"><a target="_blank" rel="noreferrer" href={"https://waze.com/ul?q=" + poi.location.lat + "," + poi.location.lon + "&navigate=yes&zoom=17"}><i className="fa fa-paper-plane-o"></i></a></div>
+                    <div className="distance-info">{poi.location.distance.value.toFixed(1)} km</div>
+                    <div className="indications-info"><a target="_blank" rel="noreferrer" href={"https://waze.com/ul?q=" + poi.location.lat + "," + poi.location.lon + "&navigate=yes&zoom=17"}><i className="fa fa-paper-plane-o"></i></a></div>
                 </div>
                 <div
                     className="info-container"
