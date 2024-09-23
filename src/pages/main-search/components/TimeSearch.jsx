@@ -102,7 +102,7 @@ export default function TimeSearch({onSelect}){
                                 onClick={()=>handleResultSelected(res)}
                             >
                                 <button className="btn-icon-2">
-                                    <i className="fa fa-flash"></i>
+                                    <i className="fa fa-bolt"></i>
                                 </button>
                                 <p>{res.label}</p>
                                 <button className="btn-icon-2" style={{visibility:'hidden'}}>

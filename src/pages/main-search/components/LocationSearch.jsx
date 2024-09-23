@@ -121,14 +121,14 @@ export default function LocationSearch({onSelect}){
                                 className="item-res"
                             >
                                 <button className="btn-icon-2">
-                                    <i className="fa fa-clock-o"></i>
+                                    <i className="far fa-clock"></i>
                                 </button>
                                 <p onClick={()=>handleResultSelected(recent)}>{recent.label}</p>
                                 <button className="btn-icon-2">
                                     <i className="fa fa-minus-circle txt-larger-0"></i>
                                 </button>
                                 <button className="btn-icon-2">
-                                    <i className="fa fa-heart-o txt-larger-0"></i>
+                                    <i className="far fa-heart txt-larger-0"></i>
                                 </button>
                             </div>
                         );

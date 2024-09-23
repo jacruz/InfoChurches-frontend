@@ -8,7 +8,7 @@ export default function FormFull({className, onClose, children}){
                 <button 
                     className="btn-icon-1"
                     onClick={()=>{onClose(CONSTANTS.FORM_FULL_CLOSE)}}>
-                    <i className="fa fa-close"></i>
+                    <i className="fa fa-times"></i>
                 </button>
             </div>
             {children}

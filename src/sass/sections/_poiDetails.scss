@@ -19,6 +19,12 @@
             position: absolute;
             bottom: 8px;
             left: 16px;
+
+            color: $dark;
+            i{
+                margin: 0 5px 0 5px;
+                
+            }
         }
         .indications-info{
             border: solid 2px $dark;
@@ -65,17 +71,25 @@
 
         .info1-container{
             padding: 10px 0;
+            font-size: $font-sm;
             i{
+                flex: 0 0 5%; 
                 color: $gray;
-                flex-basis: 5%;
             }
 
             .info1-icon-info{
                 padding: 4px 0;
                 display: flex;
-                flex-flow: row nowrap;  
+                flex-flow: row nowrap;
+
                 .info1-icon-info-container{
-                    margin: 0 10px;
+                    padding: 0 10px;
+                    max-width: 100%;
+                    word-wrap: break-word;
+
+                    a{
+                        color: $dark;
+                    }
                 }
             }
         }

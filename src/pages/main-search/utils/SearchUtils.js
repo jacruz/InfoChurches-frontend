@@ -35,11 +35,18 @@ export function isDayInScheduleValue(objSearchCriteriaTime, objScheduleValue){
 
 export function isTimeInScheduleValue(objSearchCriteriaTime, objScheduleValue){
     const res = objScheduleValue.times.some(el=>{
-        //console.log(objSearchCriteriaTime.start_time,el.start,el.end);
-        return (el.start > objSearchCriteriaTime.start_time) || (el.end? (objSearchCriteriaTime.start_time < el.end) : true);
+        //console.log(objSearchCriteriaTime.start_time,el.start,el.start > objSearchCriteriaTime.start_time,(el.end.length>0));
+        return (completeStrHour(el.start) > completeStrHour(objSearchCriteriaTime.start_time)) || (el.end.length>0? (objSearchCriteriaTime.start_time < el.end) : false);
     });
     //console.log(res?true:false, objSearchCriteriaTime.start_time);
     return res?true:false;
+}
+
+function completeStrHour(time){
+    if(time.split(':')[0].length<2)
+        return "0"+time;
+    else
+        return time;
 }
 
 export function formatTime24To12(time){//time format (24)HH:mm

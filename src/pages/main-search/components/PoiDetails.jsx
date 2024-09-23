@@ -1,5 +1,7 @@
 export default function PoiDetails({poi}){
 
+    const CONSTANTS = require("../../../utils/constants/Constants.js");
+    
     if(poi)
         return (
             <div className="poi-details">
@@ -7,8 +9,16 @@ export default function PoiDetails({poi}){
                     className="img-container"
                 >
                     {poi.img?<img alt="Poi" src={poi.img}/>:null}
-                    <div className="distance-info">{poi.location.distance.value.toFixed(1)} km</div>
-                    <div className="indications-info"><a target="_blank" rel="noreferrer" href={"https://waze.com/ul?q=" + poi.location.lat + "," + poi.location.lon + "&navigate=yes&zoom=17"}><i className="fa fa-paper-plane-o"></i></a></div>
+                    <a 
+                        className="distance-info" 
+                        target="_blank"
+                        rel="noreferrer" 
+                        href={"https://waze.com/ul?q=" + poi.location.lat + "," + poi.location.lon + "&navigate=yes&zoom=17"}
+                    >
+                        
+                        {poi.location.distance.value.toFixed(1)} km 
+                        <i className="far fa-paper-plane"></i>
+                    </a>
                 </div>
                 <div
                     className="info-container"
@@ -44,20 +54,27 @@ export default function PoiDetails({poi}){
                             </div>
                         </div>
                         
+                    </div>
+
+                    <div
+                        className="info1-container"
+                    >
+                        {poi.contact.links.map((el)=>(
+                            <div 
+                                className="info1-icon-info"
+                                key={el.value}
+                            >
+                                <i className={CONSTANTS.LINK_CONFIGS.find((confLink)=>confLink.id_dom_val===el.id)?CONSTANTS.LINK_CONFIGS.find((confLink)=>confLink.id_dom_val===el.id).icon:null}></i>
+                                <div className="info1-icon-info-container">
+                                    <p><a target="_blank" rel="noreferrer" href={el.value} >{el.value}</a></p>
+                                </div>
+                            </div>
+                        ))}
+                        
                         
                     </div>
                     
                     
-                    <ul>
-                        {poi.contact.links.map((el)=>(
-                            <li
-                                key={el.value}
-                            >
-                                <span>-{el.value}</span>
-                            </li>
-                        ))}
-                    
-                    </ul>
                 </div>
             </div>
         );

@@ -84,8 +84,51 @@ module.exports = {
 
     ],
 
+    LINK_CONFIGS: [
+        {
+            id_dom_val:13,//En bd DOMAIN_VALUES.ID_DOMAIN
+            name:'web',//Informativo
+            icon:'fa fa-globe'//font-awesome
+        },
+        {
+            id_dom_val:14,
+            name:'email',
+            icon:'fas fa-envelope'
+        },
+        {
+            id_dom_val:15,
+            name:'whatsapp',
+            icon:'fab fa-whatsapp'
+        },
+        {
+            id_dom_val:16,
+            name:'facebook',
+            icon:'fab fa-facebook'
+        },
+        {
+            id_dom_val:17,
+            name:'instagram',
+            icon:'fab fa-instagram'
+        },
+        {
+            id_dom_val:18,
+            name:'x',
+            icon:'fab fa-twitter'
+        },
+        {
+            id_dom_val:19,
+            name:'tiktok',
+            icon:'fab fa-tiktok'
+        },
+        {
+            id_dom_val:29,
+            name:'youtube',
+            icon:'fab fa-youtube'
+        },
+    ],
+
     //Location
-    DEFAULT_DISTANCE_NEARBY_SEARCH : 4,
+    DEFAULT_DISTANCE_NEARBY_SEARCH : 0.4,
 
     //actions para case de reducers
     ACTION_UPDATE_SCHEDULE : "update_schedule",
@@ -95,7 +138,7 @@ module.exports = {
     
     //Font awesome icons
     ICON_LOCATION : "fa fa-map-marker",
-    ICON_TIME : "fa fa-calendar-o",
+    ICON_TIME : "fa fa-calendar-alt",
 
     //Comportamiento de sub-ventana full (FormFull)
     FORM_FULL_NO_SHOW : "0",
@@ -124,7 +167,14 @@ module.exports = {
         }
     ],
     //Filtro de tipo de schedule (Los id son los de la col id_domain_value de la tabla DOMAIN_VALUES)
-    SEARCH_DATA_SCHEDULES : [
+    SEARCH_DATA_SCHEDULES : [9,10,11],
+
+    //id_domain_value de la tabla DOMAIN_VALUES
+    SCHEDULES_CONFIG : [
+        {
+            id:8,
+            label:"Despacho"
+        },
         {
             id:9,
             label:"Eucaristías"
@@ -136,6 +186,14 @@ module.exports = {
         {
             id:11,
             label:"Adoración"
+        },
+        {
+            id:12,
+            label:"Rosario"
+        },
+        {
+            id:20,
+            label:"Hora Santa"
         },
     ],
 }

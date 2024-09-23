@@ -19,7 +19,7 @@ export default function BoxSearch({onClickSearchCriteria}){
     return (
         <div className="box-search">
             <TabMenu 
-                dataTabMenu={CONSTANTS.SEARCH_DATA_SCHEDULES}
+                dataTabMenu={CONSTANTS.SCHEDULES_CONFIG.filter((el=>CONSTANTS.SEARCH_DATA_SCHEDULES.includes(el.id)))}
                 idTabSelected={searchCriteria.schedule_id}
                 callbackHandleSelectedTab={handleSelectedTabSchedule}
             ></TabMenu>

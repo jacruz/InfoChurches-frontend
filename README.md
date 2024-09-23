@@ -11,6 +11,9 @@
 - Manejo de error si no hay back
 
 ### No funcional
+- No volver a centrar al seleccionar un Poi
+- Botón de navegación (revisar)
+- links personalizar las URLs
 - Acumular los nuevos pines encontrados
 - Ordenar resultados en infoWindow por horas
 - Actualizar imágenes
