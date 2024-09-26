@@ -36,7 +36,7 @@ export function isDayInScheduleValue(objSearchCriteriaTime, objScheduleValue){
 export function isTimeInScheduleValue(objSearchCriteriaTime, objScheduleValue){
     const res = objScheduleValue.times.some(el=>{
         //console.log(objSearchCriteriaTime.start_time,el.start,el.start > objSearchCriteriaTime.start_time,(el.end.length>0));
-        return (completeStrHour(el.start) > completeStrHour(objSearchCriteriaTime.start_time)) || (el.end.length>0? (objSearchCriteriaTime.start_time < el.end) : false);
+        return (completeStrHour(el.start) > completeStrHour(objSearchCriteriaTime.start_time)) || ((el.end && el.end.length>0)? (objSearchCriteriaTime.start_time < el.end) : false);
     });
     //console.log(res?true:false, objSearchCriteriaTime.start_time);
     return res?true:false;

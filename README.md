@@ -6,13 +6,15 @@
 ## v1
 
 ### Funcional
-- Al presionar en los pines de resultado ver info completa de la iglesia
+- Arreglar que 'mañana' sea a las 00 horas
+- Si la iglesia no tiene imagen arreglar
 - Limitar height (Solo estilo mobile)
-- Manejo de error si no hay back
+- Manejo de error si no hay backend
 
 ### No funcional
+- Diferentes colores para cada cada de cada tipo de schedule en detalle de Poi
 - No volver a centrar al seleccionar un Poi
-- Botón de navegación (revisar)
+- Botón de navegación (revisar el link)
 - links personalizar las URLs
 - Acumular los nuevos pines encontrados
 - Ordenar resultados en infoWindow por horas

@@ -1,3 +1,5 @@
+import {formatTime24To12} from '../utils/SearchUtils.js'
+
 export default function PoiDetails({poi}){
 
     const CONSTANTS = require("../../../utils/constants/Constants.js");
@@ -36,7 +38,7 @@ export default function PoiDetails({poi}){
                     </div>
 
                     <div
-                        className="info1-container"
+                        className="contact-container"
                     >
                         <div className="info1-icon-info">
                             <i className="fa fa-map-marker"></i>
@@ -57,7 +59,7 @@ export default function PoiDetails({poi}){
                     </div>
 
                     <div
-                        className="info1-container"
+                        className="contact-container"
                     >
                         {poi.contact.links.map((el)=>(
                             <div 
@@ -73,6 +75,55 @@ export default function PoiDetails({poi}){
                         
                         
                     </div>
+                    
+                    {poi.schedules.map((schedule)=>(
+                        <div
+                            key={schedule.id + schedule.name}
+                            className="schedule-container"
+                        >
+                            <h3>{CONSTANTS.SCHEDULES_CONFIG.find((el)=>el.id===schedule.id).label}</h3>
+                            
+                            {schedule.value.map((scheduleValue,index)=>(
+                                <div
+                                    key={scheduleValue.id + scheduleValue.days_of_week}
+                                >
+                                    <div 
+                                        className="scheduleValue"
+                                    >
+                                        <div 
+                                            className="timeline"
+                                        >
+                                            <div
+                                                className="desc"
+                                            >
+                                                <p>{CONSTANTS.WEEKDAY_QUICK_CONFIGS.find((el)=>el.id_dom_val===scheduleValue.id).label}</p>
+                                            </div>
+                                            {scheduleValue.times.map((time)=>(
+                                                <div
+                                                    key={scheduleValue.id+time.start} 
+                                                    className="container right"
+                                                >
+                                                    <div className="content">
+                                                        <p>{time.start?formatTime24To12(time.start):''}{time.end?'-'+formatTime24To12(time.end):''}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    {(index < schedule.value.length-1) && 
+                                        <div className="division-container">
+                                            <span className="division"></span>
+                                        </div>
+                                    }
+                                    
+                                </div>
+                            ))}
+                            
+                        </div>
+
+                    ))}
+
+                    
                     
                     
                 </div>
