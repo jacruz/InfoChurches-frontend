@@ -35,7 +35,7 @@ export default function MainMap(){
     }
 
     return (
-        <div>
+        <div style={{width: "100%", height: "100%"}}>
             <MapComponent
                 onSelectPoi={handlePoiToShow}
             ></MapComponent>

@@ -12,12 +12,11 @@ export default function PoiDetails({poi}){
                 >
                     {poi.img?<img alt="Poi" src={poi.img}/>:null}
                     <a 
-                        className="distance-info" 
+                        className={poi.img?"distance-info ":"distance-info noImg"}
                         target="_blank"
                         rel="noreferrer" 
                         href={"https://waze.com/ul?q=" + poi.location.lat + "," + poi.location.lon + "&navigate=yes&zoom=17"}
                     >
-                        
                         {poi.location.distance.value.toFixed(1)} km 
                         <i className="far fa-paper-plane"></i>
                     </a>

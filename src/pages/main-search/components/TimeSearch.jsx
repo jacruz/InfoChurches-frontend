@@ -47,6 +47,8 @@ export default function TimeSearch({onSelect}){
                     break;
                 case "1"://mañana
                     newDate = addDays(new Date(), 1);
+                    newDate = setHours(newDate, 0);
+                    newDate = setMinutes(newDate, 0);
                     lstQuickInputs[index] = getTimeObject(newDate,quickInput.label);
                     break;
                 case "2"://Hace una hora

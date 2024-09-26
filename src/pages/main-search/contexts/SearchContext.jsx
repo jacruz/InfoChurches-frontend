@@ -7,7 +7,7 @@ export const SearchDispatch = createContext(null);
 
 //TODO Cargar datos de location desde GPS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const seachCriteriaDefault = {
-    schedule_id:10,//9:mass. Se seleccionará en el TabMenu
+    schedule_id:9,//9:mass. Se seleccionará en el TabMenu
     location:{
         label:"Mi ubicación",//Lo que se visualiza en el input de consulta
         lat: "4.67229115",

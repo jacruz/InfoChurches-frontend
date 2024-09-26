@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { Search, SearchDispatch } from "../contexts/SearchContext.jsx";
 import iconChurch from "../../../assets/img/church.png";
+import error1 from "../../../assets/img/error1.png";
 import iconChurchDisabled from "../../../assets/img/church-disabled.png";
 import point from "../../../assets/img/point.gif";
 import {isSearchCriteriaTimeInScheduleValue,formatTime24To12} from '../utils/SearchUtils.js'
@@ -29,32 +30,46 @@ export default function MapComponent({onSelectPoi}){
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: ENV_GMAPS_API_KEY,
     });
-    
+
+    let isError = useRef(false);
+
     useEffect(()=>{
-        const fetchChurches = async () => {
-            const res = await fetch(url, {
-                'mode': 'cors'
-            });
-            if(res.status===200){
-                const data = await res.json();
-                console.log(data);
-    
-                //Filtrar resultado según cuadro de búsqueda
-                searchResultsFiltered.current = data.filter((el)=>{
-                    if(el.schedules.find( (schedule)=> Number(schedule.id) === Number(scheduleIdSelected) ) ){
-                        return el;
-                    }
-                    return null;
-                });
-    
-                await searchResultsDispatch({
-                    type:CONSTANTS.ACTION_UPDATE_RESULTS,
-                    val:data
-                });
-            }
+
+        try {
+            const fetchChurches = async () => {
+
+                try {
+                    const res = await fetch(url, {
+                        'mode': 'cors'
+                    })
+                    if(res.status===200){
+                        const data = await res.json();
+                        console.log(data);
             
+                        //Filtrar resultado según cuadro de búsqueda
+                        searchResultsFiltered.current = data.filter((el)=>{
+                            if(el.schedules.find( (schedule)=> Number(schedule.id) === Number(scheduleIdSelected) ) ){
+                                return el;
+                            }
+                            return null;
+                        });
+            
+                        await searchResultsDispatch({
+                            type:CONSTANTS.ACTION_UPDATE_RESULTS,
+                            val:data
+                        });
+                    }else{
+                        isError.current = true;
+                    }
+                } catch (error) {
+                    isError.current = true;
+                }
+            }
+            fetchChurches();
+        } catch (error) {
+            isError.current = true;
         }
-        fetchChurches();
+
     },[url, scheduleIdSelected, searchResultsDispatch, CONSTANTS.ACTION_UPDATE_RESULTS]);
     //console.log(lat + ", " + lon);
     
@@ -115,10 +130,19 @@ export default function MapComponent({onSelectPoi}){
     if (!isLoaded) 
         return (
         <div style={{height:"100%", display:"flex", flexFlow:"column", justifyContent:"center", alignItems:"center"}}>
-            <p>Loading...</p>
             <img alt='icon-loading' src={iconChurch} style={{width:'80px'}} ></img>
+            <p>Loading...</p>
         </div>
         );
+
+    if (isError.current){
+        return (
+        <div style={{height:"100%", width: "100%", display:"flex", flexFlow:"column", justifyContent:"center", alignItems:"center", position: "absolute"}}>
+            <img alt='icon-loading' src={error1} style={{width:'100px'}} ></img>
+            <p>Ha ocurrido un problema consultando datos</p>
+        </div>
+        );
+    }
 
     return (
         <>

@@ -1,6 +1,9 @@
 html{
-    background: $color-secondary;
+    background: $gray;
     overflow-x: hidden;
+    position: relative;
+    max-width: 480px;
+    margin: 0 auto;
 }
 #root{
     display: flex;
@@ -11,4 +14,13 @@ html{
     background-color: $color-secondary;
     height: 100%;
     width: 100%;
+}
+
+.over-right{
+    left: 100%;
+    position: absolute;
+    width: 100%;
+    background-color: $gray;
+    height: 100%;
+    z-index: 10;
 }

@@ -9,6 +9,7 @@ function App() {
       <SearchProvider>
         <MainMap></MainMap>
         <MainSearch></MainSearch>
+        <div className="over-right"></div>
       </SearchProvider>
     </div>
   );
