@@ -3,8 +3,8 @@ import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps
 import { Search, SearchDispatch } from "../contexts/SearchContext.jsx";
 import iconChurch from "../../../assets/img/church.png";
 import error1 from "../../../assets/img/error1.png";
-import iconChurchDisabled from "../../../assets/img/church-disabled.png";
 import point from "../../../assets/img/point.gif";
+import iconChurchDisabled from "../../../assets/img/church-disabled.png";
 import {isSearchCriteriaTimeInScheduleValue,formatTime24To12} from '../utils/SearchUtils.js'
 import {getDistanceFromLatLonInKm} from '../utils/distanceCalculator.js'
 
@@ -19,12 +19,16 @@ export default function MapComponent({onSelectPoi}){
     
     const {searchCriteria, searchResults} = useContext(Search);
     const {searchResultsDispatch, searchCriteriaDispatch} = useContext(SearchDispatch);
-    let lat = searchCriteria.location.lat;
-    let lon = searchCriteria.location.lon;
+    let scLat = searchCriteria.location.lat;
+    let scLon = searchCriteria.location.lon;
     let distance = CONSTANTS.DEFAULT_DISTANCE_NEARBY_SEARCH;
-    let scheduleIdSelected = searchCriteria.schedule_id;
+    let scheduleIdSelected = searchCriteria.scheduleId;
+    let currentLocation = useRef({lat: scLat, lon: scLon});
+    let center = useRef({lat: scLat, lon: scLon});
+    console.log(center.current.lat,center.current.lon);
+    console.log(scLat,scLon);
 
-    const url = ENV_URL_SERVER+"/api/v1/churches/nearby-search?lat="+lat+"&lon="+lon+"&distance="+distance;
+    const url = ENV_URL_SERVER+"/api/v1/churches/nearby-search?lat="+center.current.lat+"&lon="+center.current.lon+"&distance="+distance;
     const searchResultsFiltered = useRef(searchResults);
 
     const { isLoaded } = useLoadScript({
@@ -36,56 +40,81 @@ export default function MapComponent({onSelectPoi}){
     useEffect(()=>{
 
         try {
-            const fetchChurches = async () => {
+            if(searchCriteria.searchInArea){
+                const fetchChurches = async () => {
 
-                try {
-                    const res = await fetch(url, {
-                        'mode': 'cors'
-                    })
-                    if(res.status===200){
-                        const data = await res.json();
-                        console.log(data);
-            
-                        //Filtrar resultado según cuadro de búsqueda
-                        searchResultsFiltered.current = data.filter((el)=>{
-                            if(el.schedules.find( (schedule)=> Number(schedule.id) === Number(scheduleIdSelected) ) ){
-                                return el;
-                            }
-                            return null;
-                        });
-            
-                        await searchResultsDispatch({
-                            type:CONSTANTS.ACTION_UPDATE_RESULTS,
-                            val:data
-                        });
-                    }else{
+                    try {
+                        const res = await fetch(url, {
+                            'mode': 'cors'
+                        })
+                        if(res.status===200){
+                            const data = await res.json();
+                            console.log(data);
+                
+                            //Filtrar resultado según cuadro de búsqueda
+                            searchResultsFiltered.current = data.filter((el)=>{
+                                if(el.schedules.find( (schedule)=> Number(schedule.id) === Number(scheduleIdSelected) ) ){
+                                    return el;
+                                }
+                                return null;
+                            });
+                
+                            await searchResultsDispatch({
+                                type:CONSTANTS.ACTION_UPDATE_RESULTS,
+                                val:data
+                            });
+                            await searchCriteriaDispatch({
+                                type:CONSTANTS.ACTION_UPDATE_SEARCH_IN_AREA,
+                                val:false
+                            });
+                            await searchCriteriaDispatch({
+                                type:CONSTANTS.ACTION_UPDATE_SHOW_BTN_SEARCH_IN_AREA,
+                                val:false
+                            });
+                            searchCriteriaDispatch({
+                                type:CONSTANTS.ACTION_UPDATE_LOCATION,
+                                val:{
+                                    label:"Ubicación del usuario",
+                                    lat: center.current.lat,
+                                    lon: center.current.lon
+                                }
+                            });
+                        }else{
+                            isError.current = true;
+                        }
+                    } catch (error) {
                         isError.current = true;
                     }
-                } catch (error) {
-                    isError.current = true;
                 }
+                fetchChurches();
             }
-            fetchChurches();
         } catch (error) {
             isError.current = true;
         }
 
-    },[url, scheduleIdSelected, searchResultsDispatch, CONSTANTS.ACTION_UPDATE_RESULTS]);
-    //console.log(lat + ", " + lon);
+    },[url, scheduleIdSelected, searchResultsDispatch, CONSTANTS.ACTION_UPDATE_RESULTS, CONSTANTS.ACTION_UPDATE_SHOW_BTN_SEARCH_IN_AREA, searchCriteriaDispatch, searchCriteria.searchInArea, CONSTANTS.ACTION_UPDATE_SEARCH_IN_AREA, CONSTANTS.ACTION_UPDATE_LOCATION]);
+    //console.log(stLat + ", " + stLon);
     
     function handleLoad(map) {
         mapRef.current = map;
         navigator?.geolocation.getCurrentPosition(
             ({ coords: { latitude: lat, longitude: lng } }) => {
-                const locationObject = {
-                    label:"Mi ubicación",
-                    lat: lat,
-                    lon: lng
+                if(lat && lng){
+                    currentLocation.current = {
+                        label:"Mi ubicación",
+                        lat: lat,
+                        lon: lng
+                    }
+                    center.current = currentLocation.current;
+                    searchCriteriaDispatch({
+                        type:CONSTANTS.ACTION_UPDATE_LOCATION,
+                        val:center.current
+                    });
+                    searchCriteriaDispatch({
+                        type:CONSTANTS.ACTION_UPDATE_SEARCH_IN_AREA,
+                        val:true
+                    });
                 }
-                searchCriteriaDispatch({
-                    type:CONSTANTS.ACTION_UPDATE_LOCATION,
-                    val:locationObject
-                });
             }
         );
     }
@@ -99,21 +128,18 @@ export default function MapComponent({onSelectPoi}){
         if (!mapRef.current) return;
         const newPos = mapRef.current.getCenter().toJSON();
         //const newZoom = mapRef.current.getZoom();
-        const newDistanceFromPrev = getDistanceFromLatLonInKm(lat,lon, newPos.lat, newPos.lng);
+        const newDistanceFromPrev = getDistanceFromLatLonInKm(scLat,scLon, newPos.lat, newPos.lng);
         //console.log('camera changed:', newPos, 'zoom:', newZoom, 'newDistanceFromPrev:', newDistanceFromPrev);
-
-        if(newDistanceFromPrev > distance/2){//Mayor a la mitad de la distancia buscada antes? vuelva a buscar
+        center.current = {
+            lat: newPos.lat,
+            lon: newPos.lng
+        }
+        console.log(searchCriteria.showBtnSearchInArea);
+        if(newDistanceFromPrev > distance && !searchCriteria.showBtnSearchInArea){//Mayor a la mitad de la distancia buscada antes? habilitar buscar en esta área
             console.log("Actualizando!")
-            lat = newPos.lat;
-            lon = newPos.lng;
-            const locationObject = {
-                label:"Ubicación de usuario",
-                lat: newPos.lat,
-                lon: newPos.lng
-            }
             searchCriteriaDispatch({
-                type:CONSTANTS.ACTION_UPDATE_LOCATION,
-                val:locationObject
+                type:CONSTANTS.ACTION_UPDATE_SHOW_BTN_SEARCH_IN_AREA,
+                val:true
             });
         }
     }
@@ -129,7 +155,7 @@ export default function MapComponent({onSelectPoi}){
 
     if (!isLoaded) 
         return (
-        <div style={{height:"100%", display:"flex", flexFlow:"column", justifyContent:"center", alignItems:"center"}}>
+        <div style={{height:"100%", width: "100%", display:"flex", flexFlow:"column", justifyContent:"center", alignItems:"center", position: "absolute"}}>
             <img alt='icon-loading' src={iconChurch} style={{width:'80px'}} ></img>
             <p>Loading...</p>
         </div>
@@ -147,7 +173,7 @@ export default function MapComponent({onSelectPoi}){
     return (
         <>
         <GoogleMap
-            center={{lat: Number(lat), lng: Number(lon)}}
+            center={{lat: Number(center.current.lat), lng: Number(center.current.lon)}}
             zoom={16}
             mapContainerStyle={{ width: '100%', height: '100%', position: "absolute", zindex: "0" }}
             options={{
@@ -160,6 +186,16 @@ export default function MapComponent({onSelectPoi}){
             onCenterChanged={handleMapChanged}
             onZoomChanged={handleMapChanged}
         >
+            <Marker
+                key={"gps"}
+                position={{lat: Number(currentLocation.current.lat), lng: Number(currentLocation.current.lon)}}
+                icon={
+                    {
+                        url:point,
+                        scaledSize:  new window.google.maps.Size(30,30)
+                    }
+                }
+            ></Marker>
         {searchResults.map((poi,index) => (
 
             <Marker
@@ -230,7 +266,7 @@ export default function MapComponent({onSelectPoi}){
         ))}
         </GoogleMap>
 
-        {/* Imagen flotante sobre el mapa */}
+        {/* Imagen flotante sobre el mapa 
         <div
             className='point-center'
         >
@@ -239,7 +275,7 @@ export default function MapComponent({onSelectPoi}){
                 alt="o"
             />
         </div>
-
+        */}
         </>
     );
 };

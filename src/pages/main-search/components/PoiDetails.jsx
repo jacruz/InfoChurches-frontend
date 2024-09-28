@@ -17,8 +17,16 @@ export default function PoiDetails({poi}){
                         rel="noreferrer" 
                         href={"https://waze.com/ul?q=" + poi.location.lat + "," + poi.location.lon + "&navigate=yes&zoom=17"}
                     >
-                        {poi.location.distance.value.toFixed(1)} km 
-                        <i className="far fa-paper-plane"></i>
+                        <div className='distance-info-div'>
+                            <div className='distance-info-val'>
+                                {poi.location.distance.value.toFixed(1)} km 
+                                <span> De tu posición</span>
+                            </div>
+                            <div className='distance-info-nav'>
+                                <i className="far fa-paper-plane"></i>
+                            </div>
+                        </div>
+                        
                     </a>
                 </div>
                 <div

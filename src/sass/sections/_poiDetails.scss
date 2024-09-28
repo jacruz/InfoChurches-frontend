@@ -24,6 +24,27 @@
             left: 16px;
 
             color: $dark;
+
+            .distance-info-div{
+                display: flex;
+                flex-flow: row nowrap;
+
+                .distance-info-val{
+                    display: flex;
+                    flex-flow: column nowrap;
+                    align-items: center;
+                    span{
+                        font-size: $font-xs;
+                    }
+                }
+                .distance-info-nav{
+                    display: flex;
+                    flex-flow: column nowrap;
+                    justify-content: center;
+                }
+            }
+            
+
             i{
                 margin: 0 5px 0 5px;
                 
@@ -31,7 +52,7 @@
         }
         
         .noImg{
-            bottom: -16px;
+            bottom: -23px;
         }
         
         .indications-info{

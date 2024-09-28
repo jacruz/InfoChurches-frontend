@@ -6,17 +6,15 @@
 ## v1
 
 ### Funcional
-- Montar Postgres online
+- Acumular los nuevos pines encontrados
+- Permitir cerrar en infowindows que no son custom
 
 ### No funcional
 - Diferentes colores para cada tipo de schedule en detalle de Poi
-- No volver a centrar al seleccionar un Poi
 - Botón de navegación (revisar el link)
 - links personalizar las URLs
-- Acumular los nuevos pines encontrados
 - Ordenar resultados en infoWindow por horas
-- Actualizar imágenes
-- Mostrar Distancia desde donde????
+- Actualizar iconos
 - Botón para enviar comentarios
 
 ## v2
@@ -39,8 +37,13 @@
 - https://www.snowpack.dev/tutorials/react
 
 #### React:
+- https://learn.microsoft.com/api/achievements/share/en-us/JonnathanAlexanderCruzHernandez-4702/HRGNDBG8?sharingId=42E0961CC4DE1800
 - https://www.geeksforgeeks.org/reactjs-jsx-introduction/?ref=lbp
 - https://react.dev/learn/
 - https://medium.com/inato/how-to-develop-a-navigation-menu-with-react-context-9f4d14db3d55
 
-https://distancematrix.ai/es/geocoding-api-free
+#### Postgres:
+- neon.tech: Neon Serverless Postgres
+
+#### Other: 
+- https://distancematrix.ai/es/geocoding-api-free

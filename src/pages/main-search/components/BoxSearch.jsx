@@ -16,11 +16,18 @@ export default function BoxSearch({onClickSearchCriteria}){
         });
     }
 
+    const handleSearchInArea = ()=>{
+        searchCriteriaDispatch({
+            type:CONSTANTS.ACTION_UPDATE_SEARCH_IN_AREA,
+            val:true
+        });
+    }
+
     return (
         <div className="box-search">
             <TabMenu 
                 dataTabMenu={CONSTANTS.SCHEDULES_CONFIG.filter((el=>CONSTANTS.SEARCH_DATA_SCHEDULES.includes(el.id)))}
-                idTabSelected={searchCriteria.schedule_id}
+                idTabSelected={searchCriteria.scheduleId}
                 callbackHandleSelectedTab={handleSelectedTabSchedule}
             ></TabMenu>
             <div className="box-search-label">
@@ -39,6 +46,17 @@ export default function BoxSearch({onClickSearchCriteria}){
                     <span className="text-yellow-dark ">¿Cuándo?: </span>{searchCriteria.time.label===searchCriteria.time.date?' Desde ':''}{searchCriteria.time.label}
                 </LinkText>
             </div>
+            
+            {searchCriteria.showBtnSearchInArea &&
+                <div className="search-in-area">
+                    <span 
+                        className="link"
+                        onClick={()=>{handleSearchInArea()}}
+                    >
+                        Buscar en esta área
+                    </span>
+                </div>
+            }
         </div>
     );
 }

@@ -150,6 +150,8 @@ module.exports = {
     ACTION_UPDATE_SCHEDULE : "update_schedule",
     ACTION_UPDATE_LOCATION : "update_location",
     ACTION_UPDATE_TIME : "update_time",
+    ACTION_UPDATE_SEARCH_IN_AREA : "update_search_in_area",
+    ACTION_UPDATE_SHOW_BTN_SEARCH_IN_AREA : "update_show_btn_search_in_area",
     ACTION_UPDATE_RESULTS : "update_results",
     
     //Font awesome icons

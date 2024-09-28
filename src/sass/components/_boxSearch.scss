@@ -25,4 +25,18 @@
         padding: 0 0 10px 0;
     }
     
+    .search-in-area{
+        position: absolute;
+        bottom: -30px;
+        width: 100%;
+        text-align: center;
+        
+        .link{
+            cursor: pointer;
+            color: $dark;
+            text-shadow: 2px 2px $yellow-dark;
+            font-size: $font-md;
+            font-weight: 500;
+        }
+    }
 }

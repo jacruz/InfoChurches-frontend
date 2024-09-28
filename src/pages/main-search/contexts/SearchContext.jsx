@@ -7,13 +7,15 @@ export const SearchDispatch = createContext(null);
 
 //TODO Cargar datos de location desde GPS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const seachCriteriaDefault = {
-    schedule_id:9,//9:mass. Se seleccionará en el TabMenu
+    scheduleId:9,//9:mass. Se seleccionará en el TabMenu
     location:{
         label:"Mi ubicación",//Lo que se visualiza en el input de consulta
         lat: "4.67229115",
         lon: "-74.14368689"
     },
-    time:getTimeObject(new Date(),CONSTANTS.TIME_QUICK_INPUTS[0].label)
+    time:getTimeObject(new Date(),CONSTANTS.TIME_QUICK_INPUTS[0].label),
+    showBtnSearchInArea:true,
+    searchInArea:true
 };
 
 export function SearchProvider({children}){
@@ -59,7 +61,7 @@ function SearchCriteriaReducer(seachCriteria, action){
         case CONSTANTS.ACTION_UPDATE_SCHEDULE:{
             return {
                 ...seachCriteria,
-                schedule_id : action.val
+                scheduleId : action.val
             };
         }
         case CONSTANTS.ACTION_UPDATE_LOCATION:{
@@ -72,6 +74,18 @@ function SearchCriteriaReducer(seachCriteria, action){
             return {
                 ...seachCriteria,
                 time : action.val
+            };
+        }
+        case CONSTANTS.ACTION_UPDATE_SHOW_BTN_SEARCH_IN_AREA:{
+            return {
+                ...seachCriteria,
+                showBtnSearchInArea : action.val
+            };
+        }
+        case CONSTANTS.ACTION_UPDATE_SEARCH_IN_AREA:{
+            return {
+                ...seachCriteria,
+                searchInArea : action.val
             };
         }
         default:{
