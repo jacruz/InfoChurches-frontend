@@ -6,16 +6,15 @@
 ## v1
 
 ### Funcional
-- Acumular los nuevos pines encontrados
-- Permitir cerrar en infowindows que no son custom
+OK!
 
 ### No funcional
 - Diferentes colores para cada tipo de schedule en detalle de Poi
 - Botón de navegación (revisar el link)
 - links personalizar las URLs
-- Ordenar resultados en infoWindow por horas
 - Actualizar iconos
 - Botón para enviar comentarios
+- Ordenar resultados en infoWindow por horas
 
 ## v2
 - Cambio de idioma
@@ -47,3 +46,7 @@
 
 #### Other: 
 - https://distancematrix.ai/es/geocoding-api-free
+
+
+
+the icon "loading" is provided by loading.io 

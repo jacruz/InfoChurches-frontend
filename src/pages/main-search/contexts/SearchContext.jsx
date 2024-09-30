@@ -5,7 +5,7 @@ const CONSTANTS = require("../../../utils/constants/Constants.js");
 export const Search = createContext(null);
 export const SearchDispatch = createContext(null);
 
-//TODO Cargar datos de location desde GPS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//Por defecto en la diócesis de Fontibón!
 const seachCriteriaDefault = {
     scheduleId:9,//9:mass. Se seleccionará en el TabMenu
     location:{
