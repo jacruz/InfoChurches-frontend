@@ -8,7 +8,7 @@ export function getTimeObject(date, label){
     let time = {
         label:label?label:formattedDate,
         date:formattedDate,
-        id_day_of_week:CONSTANTS.WEEKDAY_QUICK_CONFIGS.find((el)=>el.id_dom_val===idDay).id_dom_val,
+        id_day_of_week:CONSTANTS.WEEKDAY_QUICK_CONFIGS.find((el)=>el.idDomVal===idDay).idDomVal,
         start_time:date.getHours() + ":" + date.getMinutes()
     }
     return time;
@@ -23,7 +23,7 @@ export function isSearchCriteriaTimeInScheduleValue(objSearchCriteriaTime, objSc
 
 export function isDayInScheduleValue(objSearchCriteriaTime, objScheduleValue){
     const res = CONSTANTS.WEEKDAY_QUICK_CONFIGS.find((el)=>{
-        if(el.id_dom_val === objScheduleValue.id){
+        if(el.idDomVal === objScheduleValue.id){
             if(el.include_ids.includes(objSearchCriteriaTime.id_day_of_week))
                 return true;
         }

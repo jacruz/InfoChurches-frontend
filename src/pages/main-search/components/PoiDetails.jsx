@@ -10,12 +10,12 @@ export default function PoiDetails({poi}){
                 <div
                     className="img-container"
                 >
-                    {poi.img?<img alt="Poi" src={poi.img}/>:null}
+                    {poi.img?<img alt="poi" src={poi.img}/>:null}
                     <a 
                         className={poi.img?"distance-info ":"distance-info noImg"}
                         target="_blank"
                         rel="noreferrer" 
-                        href={"https://waze.com/ul?q=" + poi.location.lat + "," + poi.location.lon + "&navigate=yes&zoom=17"}
+                        href={'http://maps.google.com?daddr=' + poi.location.lat + ',' + poi.location.lon + '&amp;ll='}
                     >
                         <div className='distance-info-div'>
                             <div className='distance-info-val'>
@@ -73,9 +73,9 @@ export default function PoiDetails({poi}){
                                 className="info1-icon-info"
                                 key={el.value}
                             >
-                                <i className={CONSTANTS.LINK_CONFIGS.find((confLink)=>confLink.id_dom_val===el.id)?CONSTANTS.LINK_CONFIGS.find((confLink)=>confLink.id_dom_val===el.id).icon:null}></i>
+                                <i className={CONSTANTS.LINK_CONFIGS.find((confLink)=>confLink.idDomVal===el.id)?CONSTANTS.LINK_CONFIGS.find((confLink)=>confLink.idDomVal===el.id).icon:'fa fa-globe'}></i>
                                 <div className="info1-icon-info-container">
-                                    <p><a target="_blank" rel="noreferrer" href={el.value} >{el.value}</a></p>
+                                    <p><a target="_blank" rel="noreferrer" href={CONSTANTS.LINK_CONFIGS.find((confLink)=>confLink.idDomVal===el.id)?CONSTANTS.LINK_CONFIGS.find((confLink)=>confLink.idDomVal===el.id).prefixLink+el.value:el.value} >{el.value}</a></p>
                                 </div>
                             </div>
                         ))}
@@ -103,7 +103,7 @@ export default function PoiDetails({poi}){
                                             <div
                                                 className="desc"
                                             >
-                                                <p>{CONSTANTS.WEEKDAY_QUICK_CONFIGS.find((el)=>el.id_dom_val===scheduleValue.id).label}</p>
+                                                <p>{CONSTANTS.WEEKDAY_QUICK_CONFIGS.find((el)=>el.idDomVal===scheduleValue.id).label}</p>
                                             </div>
                                             {scheduleValue.times.map((time)=>(
                                                 <div

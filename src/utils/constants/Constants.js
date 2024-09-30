@@ -2,97 +2,97 @@ module.exports = {
     TIME_FORMAT_1 : "MM/dd/yyyy h:mm aa",
     WEEKDAY_QUICK_CONFIGS: [
         {
-            id_dom_val:1,//En bd DOMAIN_VALUES.ID_DOMAIN
+            idDomVal:1,//En bd DOMAIN_VALUES.ID_DOMAIN
             name:'monday',//Informativo
             include_ids: [1], //Los ids que incluye, como lun-vie
             label:'lunes'
         },
         {
-            id_dom_val:2,
+            idDomVal:2,
             name:'tuesday',
             include_ids: [2],
             label: 'martes'
         },
         {
-            id_dom_val:3,
+            idDomVal:3,
             name:'wednesday',
             include_ids: [3],
             label: 'miercoles'
         },
         {
-            id_dom_val:4,
+            idDomVal:4,
             name:'thursday',
             include_ids: [4],
             label: 'jueves'
         },
         {
-            id_dom_val:5,
+            idDomVal:5,
             name:'friday',
             include_ids: [5],
             label: 'viernes'
         },
         {
-            id_dom_val:6,
+            idDomVal:6,
             name:'saturday',
             include_ids: [6],
             label: 'sábado'
         },
         {
-            id_dom_val:7,
+            idDomVal:7,
             name:'sunday',
             include_ids: [7],
             label: 'domingo'
         },
         {
-            id_dom_val:25,
+            idDomVal:25,
             name:'mon-fri',
             include_ids: [1,2,3,4,5],
             label: 'lunes a viernes'
         },
         {
-            id_dom_val:26,
+            idDomVal:26,
             name:'mon-sat',
             include_ids: [1,2,3,4,5,6],
             label: 'lunes a sábado'
         },
         {
-            id_dom_val:27,
+            idDomVal:27,
             name:'tue-fri',
             include_ids: [2,3,4,5],
             label: 'martes a viernes'
         },
         {
-            id_dom_val:28,
+            idDomVal:28,
             name:'tue-sat',
             include_ids: [2,3,4,5,6],
             label: 'martes a sábado'
         },
         {
-            id_dom_val:31,
+            idDomVal:31,
             name:'14th',
             include_ids: [],
             label: 'catorces del mes'
         },
         {
-            id_dom_val:32,
+            idDomVal:32,
             name:'mon-tue-thu-fri',
             include_ids: [1,2,4,5],
             label: 'lunes, martes, jueves y viernes'
         },
         {
-            id_dom_val:33,
+            idDomVal:33,
             name:'mon-tue-thu-fri-sat',
             include_ids: [1,2,4,5,6],
             label: 'lunes, martes, jueves, viernes y sábado'
         },
         {
-            id_dom_val:34,
+            idDomVal:34,
             name:'First-sat',
             include_ids: [],
             label: 'primer sábado de mes'
         },
         {
-            id_dom_val:35,
+            idDomVal:35,
             name:'First-fri',
             include_ids: [],
             label: 'primer viernes de mes'
@@ -102,44 +102,52 @@ module.exports = {
 
     LINK_CONFIGS: [
         {
-            id_dom_val:13,//En bd DOMAIN_VALUES.ID_DOMAIN
+            idDomVal:13,//En bd DOMAIN_VALUES.ID_DOMAIN
             name:'web',//Informativo
-            icon:'fa fa-globe'//font-awesome
+            icon:'fa fa-globe',//font-awesome
+            prefixLink:''//Si el link debe tener un prefijo
         },
         {
-            id_dom_val:14,
+            idDomVal:14,
             name:'email',
-            icon:'fas fa-envelope'
+            icon:'fas fa-envelope',
+            prefixLink:'mailto:'
         },
         {
-            id_dom_val:15,
+            idDomVal:15,
             name:'whatsapp',
-            icon:'fab fa-whatsapp'
+            icon:'fab fa-whatsapp',
+            prefixLink:'https://api.whatsapp.com/send?phone='
         },
         {
-            id_dom_val:16,
+            idDomVal:16,
             name:'facebook',
-            icon:'fab fa-facebook'
+            icon:'fab fa-facebook',
+            prefixLink:''
         },
         {
-            id_dom_val:17,
+            idDomVal:17,
             name:'instagram',
-            icon:'fab fa-instagram'
+            icon:'fab fa-instagram',
+            prefixLink:''
         },
         {
-            id_dom_val:18,
+            idDomVal:18,
             name:'x',
-            icon:'fab fa-twitter'
+            icon:'fab fa-twitter',
+            prefixLink:''
         },
         {
-            id_dom_val:19,
+            idDomVal:19,
             name:'tiktok',
-            icon:'fab fa-tiktok'
+            icon:'fab fa-tiktok',
+            prefixLink:''
         },
         {
-            id_dom_val:29,
+            idDomVal:29,
             name:'youtube',
-            icon:'fab fa-youtube'
+            icon:'fab fa-youtube',
+            prefixLink:''
         },
     ],
 

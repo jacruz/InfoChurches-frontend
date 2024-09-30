@@ -9,11 +9,9 @@
 OK!
 
 ### No funcional
-- Diferentes colores para cada tipo de schedule en detalle de Poi
-- Botón de navegación (revisar el link)
-- links personalizar las URLs
-- Actualizar iconos
 - Botón para enviar comentarios
+- Diferentes colores para cada tipo de schedule en detalle de Poi
+- Actualizar iconos
 - Ordenar resultados en infoWindow por horas
 
 ## v2
