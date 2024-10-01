@@ -71,7 +71,7 @@ module.exports = {
             idDomVal:31,
             name:'14th',
             include_ids: [],
-            label: 'catorces del mes'
+            label: '14° del mes'
         },
         {
             idDomVal:32,
