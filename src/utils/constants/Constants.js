@@ -89,13 +89,13 @@ module.exports = {
             idDomVal:34,
             name:'First-sat',
             include_ids: [],
-            label: 'primer sábado de mes'
+            label: '1° sábado de mes'
         },
         {
             idDomVal:35,
             name:'First-fri',
             include_ids: [],
-            label: 'primer viernes de mes'
+            label: '1° viernes de mes'
         }
 
     ],
@@ -199,27 +199,33 @@ module.exports = {
     SCHEDULES_CONFIG : [
         {
             id:8,
-            label:"Despacho"
+            label:"Despacho",
+            bkgColor: "lightblue"
         },
         {
             id:9,
-            label:"Eucaristías"
+            label:"Eucaristías",
+            bkgColor: "steelblue"
         },
         {
             id:10,
-            label:"Confesiones"
+            label:"Confesiones",
+            bkgColor: "lightseagreen"
         },
         {
             id:11,
-            label:"Adoración"
+            label:"Adoración",
+            bkgColor: "lightgreen"
         },
         {
             id:12,
-            label:"Rosario"
+            label:"Rosario",
+            bkgColor: "lightcoral"
         },
         {
             id:20,
-            label:"Hora Santa"
+            label:"Hora Santa",
+            bkgColor: "plum"
         },
     ],
 }

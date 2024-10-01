@@ -87,6 +87,7 @@ export default function PoiDetails({poi}){
                         <div
                             key={schedule.id + schedule.name}
                             className="schedule-container"
+                            style={{backgroundColor:CONSTANTS.SCHEDULES_CONFIG.find((el)=>el.id===schedule.id).bkgColor}}
                         >
                             <h3>{CONSTANTS.SCHEDULES_CONFIG.find((el)=>el.id===schedule.id).label}</h3>
                             

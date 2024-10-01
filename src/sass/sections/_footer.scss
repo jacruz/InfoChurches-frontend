@@ -1,33 +1,15 @@
 .footer{
-    padding: 1em 0;
-}
-.section-powered-by{
+    position: absolute;
+    height: 3%;
+    bottom: 0px;
+    padding: 3px !important;
     background-color: $black;
-    color: $white;
-    display: inline-block;
     width: 100%;
-    padding: 1em 0;
     text-align: center;
+    color: $bright;
     font-size: $font-sm;
+
     a{
         color: $yellow-dark;
-        font-weight: 500;
-    }
-    
-}
-
-
-/* Media Query */
-@media (max-width: 600px) {
-    .footer{
-        .f-categories{
-            padding: 1em 2em 2em;
-            flex-flow: column;
-            align-items: start;
-            text-align: left;
-            &-column{
-                padding: 1em 0;
-            }
-        }
     }
 }

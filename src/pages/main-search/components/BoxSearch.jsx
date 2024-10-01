@@ -46,6 +46,9 @@ export default function BoxSearch({onClickSearchCriteria}){
                     <span className="text-yellow-dark ">¿Cuándo?: </span>{searchCriteria.time.label===searchCriteria.time.date?' Desde ':''}{searchCriteria.time.label}
                 </LinkText>
             </div>
+            <div className="send-comments">
+                <a href="mailto:jacruzjacruz@gmail.com">Enviar comentarios</a>
+            </div>
             
             {searchCriteria.showBtnSearchInArea &&
                 <div className="search-in-area">

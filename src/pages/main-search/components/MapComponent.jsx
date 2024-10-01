@@ -157,7 +157,7 @@ export default function MapComponent({onSelectPoi}){
         return (
         <div className='over-div'>
             <img alt='icon-loading' src={iconChurch} style={{width:'80px'}} ></img>
-            <p>Loading...</p>
+            <p>Info Churches</p>
         </div>
         );
 
@@ -175,7 +175,7 @@ export default function MapComponent({onSelectPoi}){
         <GoogleMap
             center={{lat: Number(center.current.lat), lng: Number(center.current.lon)}}
             zoom={16}
-            mapContainerStyle={{ width: '100%', height: '100%', position: "absolute", zindex: "0" }}
+            mapContainerStyle={{ width: '100%', height: '97%', position: "absolute", zindex: "0" }}
             options={{
                 mapId: ENV_MAP_ID,
                 disableDefaultUI: true,
@@ -192,7 +192,7 @@ export default function MapComponent({onSelectPoi}){
                 icon={
                     {
                         url:point,
-                        scaledSize: new window.google.maps.Size(30,30)
+                        scaledSize: new window.google.maps.Size(80,80)
                     }
                 }
             ></Marker>

@@ -6,13 +6,10 @@
 ## v1
 
 ### Funcional
-OK!
+- Ajustar size desc times schedule cuando son muy grandes
 
 ### No funcional
-- Botón para enviar comentarios
-- Diferentes colores para cada tipo de schedule en detalle de Poi
-- Actualizar iconos
-- Ordenar resultados en infoWindow por horas
+
 
 ## v2
 - Cambio de idioma
@@ -20,6 +17,7 @@ OK!
 - Implementar consumo API que arroja resultados según búsqueda en input de location
 - Búsquedas recientes, favoritos
 - Implementar responsive
+- Ordenar resultados en infoWindow por horas
 
 
 
