@@ -98,14 +98,14 @@ export default function PoiDetails({poi}){
                                     <div 
                                         className="scheduleValue"
                                     >
+                                        <div
+                                            className="desc"
+                                        >
+                                            <p>{CONSTANTS.WEEKDAY_QUICK_CONFIGS.find((el)=>el.idDomVal===scheduleValue.id).label}</p>
+                                        </div>
                                         <div 
                                             className="timeline"
                                         >
-                                            <div
-                                                className="desc"
-                                            >
-                                                <p>{CONSTANTS.WEEKDAY_QUICK_CONFIGS.find((el)=>el.idDomVal===scheduleValue.id).label}</p>
-                                            </div>
                                             {scheduleValue.times.map((time)=>(
                                                 <div
                                                     key={scheduleValue.id+time.start} 

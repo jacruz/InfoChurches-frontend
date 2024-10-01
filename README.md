@@ -1,17 +1,7 @@
 # InfoChurches. Web app
 
 
-# PENDIENTES:
-
-## v1
-
-### Funcional
-- Ajustar size desc times schedule cuando son muy grandes
-
-### No funcional
-
-
-## v2
+# PENDIENTES v2:
 - Cambio de idioma
 - Implementar consumo API que arroja la dirección según punto en el mapa
 - Implementar consumo API que arroja resultados según búsqueda en input de location

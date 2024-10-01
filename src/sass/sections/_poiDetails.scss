@@ -135,6 +135,8 @@
             font-size: $font-sm;
 
             .scheduleValue{
+                display: flex;
+                flex-flow: row nowrap;
                 margin: 10px 0 0;
                 
             }
@@ -150,18 +152,17 @@
                 }
             }
             
+            .desc{
+                flex: 0 0 40%;
+                padding: 10px 0 0 20px;
+                font-size: $font-md;
+            }
 
             /* The actual timeline (the vertical ruler) */
             .timeline {
+                flex: 0 0 60%;
                 position: relative;
                 margin: 10px 0;
-
-                .desc{
-                    position: absolute;
-                    left: 15px;
-                    width: 30%;
-                    font-size: $font-md;
-                }
             }
             /* The actual timeline (the vertical ruler) */
             .timeline::after {
@@ -169,7 +170,7 @@
                 position: absolute;
                 top: 0;
                 bottom: 0;
-                left: 40%;
+                left: 10%;
                 width: 2px;
                 margin-left: -3px;
                 background-color: rgb(65, 4, 4);
@@ -180,7 +181,7 @@
                 padding: 1px 20px;
                 position: relative;
                 background-color: inherit;
-                width: 60%;
+                width: 80%;
             }
             
             /* The circles on the timeline */
@@ -203,7 +204,7 @@
             
             /* Place the container to the right */
             .right {
-                left: 40%;
+                left: 10%;
             }
             
             /* Add arrows to the right container (pointing left) */
